@@ -73,31 +73,21 @@ export function Navbar() {
 
   return (
     <>
-      {/* Header - No motion on mobile to prevent jank */}
+      {/* Header */}
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 bg-[#fafaf9]",
-          // Desktop: add shadow on scroll
-          "lg:transition-shadow lg:duration-300",
-          isScrolled && "lg:shadow-[0_2px_20px_-2px_rgba(0,0,0,0.08)]"
+          isScrolled && "shadow-[0_2px_20px_-2px_rgba(0,0,0,0.08)]"
         )}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Mobile: fixed height, Desktop: dynamic height with transition */}
-          <div className={cn(
-            "flex items-center justify-between",
-            // Mobile: fixed height, no transition
-            "h-16",
-            // Desktop: dynamic height with transition
-            "lg:transition-all lg:duration-500",
-            isScrolled ? "lg:h-20" : "lg:h-32"
-          )}>
+          <div className="flex items-center justify-between h-16 lg:h-24">
             
             {/* Logo */}
             <Link 
               href="/" 
               scroll={false}
-              className="shrink-0 flex items-center gap-3 lg:gap-4 group"
+              className="shrink-0 flex items-center gap-3 lg:gap-4"
               onClick={(e) => {
                 if (pathname === "/") {
                   e.preventDefault();
@@ -105,15 +95,7 @@ export function Navbar() {
                 }
               }}
             >
-              {/* Mobile: fixed size, Desktop: dynamic size */}
-              <div className={cn(
-                "relative",
-                // Mobile: fixed size
-                "w-12 h-12",
-                // Desktop: dynamic size with transition
-                "lg:transition-all lg:duration-500",
-                isScrolled ? "lg:w-14 lg:h-14" : "lg:w-24 lg:h-24"
-              )}>
+              <div className="relative w-12 h-12 lg:w-16 lg:h-16">
                 <Image
                   src="/assets/logos/logo_mavi.png"
                   alt="Iğdır Uygulama Oteli"
@@ -123,24 +105,10 @@ export function Navbar() {
                 />
               </div>
               <div className="hidden sm:flex flex-col">
-                <span className={cn(
-                  "font-semibold text-slate-900 leading-tight tracking-tight",
-                  // Mobile: fixed size
-                  "text-sm",
-                  // Desktop: dynamic size with transition
-                  "lg:transition-all lg:duration-500",
-                  isScrolled ? "lg:text-base" : "lg:text-xl"
-                )}>
+                <span className="font-semibold text-slate-900 leading-tight tracking-tight text-sm lg:text-lg">
                   {t("brand.hotelName")}
                 </span>
-                <span className={cn(
-                  "text-slate-500 leading-tight tracking-tight",
-                  // Mobile: fixed size
-                  "text-xs",
-                  // Desktop: dynamic size with transition
-                  "lg:transition-all lg:duration-500",
-                  isScrolled ? "lg:text-xs" : "lg:text-base"
-                )}>
+                <span className="text-slate-500 leading-tight tracking-tight text-xs lg:text-sm">
                   {t("brand.schoolName")}
                 </span>
               </div>
@@ -160,7 +128,7 @@ export function Navbar() {
                     }
                   }}
                   className={cn(
-                    "relative px-5 py-2.5 text-sm font-medium tracking-wide transition-all duration-300",
+                    "relative px-5 py-2.5 text-sm font-medium tracking-wide transition-colors duration-200",
                     isActive(item.href)
                       ? "text-primary"
                       : "text-slate-600 hover:text-slate-900"
@@ -168,11 +136,7 @@ export function Navbar() {
                 >
                   {t(item.labelKey)}
                   {isActive(item.href) && (
-                    <motion.span
-                      layoutId="navIndicator"
-                      className="absolute -bottom-0.5 left-5 right-5 h-[2px] bg-primary rounded-full"
-                      transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                    />
+                    <span className="absolute -bottom-0.5 left-5 right-5 h-[2px] bg-primary rounded-full" />
                   )}
                 </Link>
               ))}
@@ -287,14 +251,8 @@ export function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Spacer - Mobile: fixed, Desktop: dynamic */}
-      <div className={cn(
-        // Mobile: fixed height, no transition
-        "h-16",
-        // Desktop: dynamic height with transition
-        "lg:transition-all lg:duration-500",
-        isScrolled ? "lg:h-20" : "lg:h-32"
-      )} />
+      {/* Spacer */}
+      <div className="h-16 lg:h-24" />
     </>
   );
 }

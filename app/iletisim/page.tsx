@@ -1,17 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { 
-  Phone, 
-  MapPin, 
-  ExternalLink
-} from "lucide-react";
+import { Phone, MapPin, ExternalLink } from "lucide-react";
 import { contactInfo } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n";
 
-// WhatsApp Icon Component
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -20,7 +12,6 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-// Instagram Icon Component
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -29,7 +20,6 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-// Page Header
 function PageHeader() {
   const { t } = useTranslation();
   
@@ -38,19 +28,10 @@ function PageHeader() {
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
       
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center"
-        >
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
-            {t("contact.pageTitle")}
-          </h1>
-          <p className="text-slate-400 text-base md:text-lg">
-            {t("contact.pageDescription")}
-          </p>
-        </motion.div>
+        <div className="text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">{t("contact.pageTitle")}</h1>
+          <p className="text-slate-400 text-base md:text-lg">{t("contact.pageDescription")}</p>
+        </div>
       </div>
 
       <div className="absolute -bottom-px left-0 right-0">
@@ -62,55 +43,35 @@ function PageHeader() {
   );
 }
 
-// Main Content
 function ContactContent() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
   const { t } = useTranslation();
 
   return (
-    <section ref={ref} className="py-12 md:py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           
           {/* Left - Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5 }}
-          >
+          <div>
             <h2 className="text-xl font-bold text-slate-900 mb-6">{t("contact.addressAndContact")}</h2>
             
             {/* Contact List */}
             <div className="space-y-4 mb-8">
               {/* Phone */}
-              <a
-                href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
-                className="flex items-center gap-3 text-slate-700 hover:text-amber-600 transition-colors"
-              >
+              <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 text-slate-700 hover:text-amber-600 transition-colors">
                 <Phone className="h-5 w-5 text-amber-600 shrink-0" />
                 <span className="text-lg">{contactInfo.phone}</span>
               </a>
 
               {/* WhatsApp */}
-              <a
-                href={contactInfo.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-slate-700 hover:text-green-600 transition-colors"
-              >
+              <a href={contactInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-700 hover:text-green-600 transition-colors">
                 <WhatsAppIcon className="h-5 w-5 text-green-600 shrink-0" />
                 <span className="text-lg">{contactInfo.whatsapp}</span>
               </a>
 
               {/* Instagram */}
-              <a
-                href={contactInfo.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 text-slate-700 hover:text-pink-600 transition-colors"
-              >
+              <a href={contactInfo.instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-slate-700 hover:text-pink-600 transition-colors">
                 <InstagramIcon className="h-5 w-5 text-pink-600 shrink-0" />
                 <span className="text-lg">@{contactInfo.instagram}</span>
               </a>
@@ -144,23 +105,14 @@ function ContactContent() {
             </ul>
 
             {/* Open in Map Button */}
-            <a
-              href={contactInfo.mapUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-primary hover:underline"
-            >
+            <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:underline">
               {t("common.openInMap")}
               <ExternalLink className="h-4 w-4" />
             </a>
-          </motion.div>
+          </div>
 
           {/* Right - Map */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <div>
             <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-100">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.1234567890!2d44.0456!3d39.9234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU1JzI0LjIiTiA0NMKwMDInNDAuNCJF!5e0!3m2!1str!2str!4v1234567890123!5m2!1str!2str"
@@ -174,7 +126,7 @@ function ContactContent() {
                 title={t("contact.mapTitle")}
               />
             </div>
-          </motion.div>
+          </div>
 
         </div>
       </div>
@@ -182,7 +134,6 @@ function ContactContent() {
   );
 }
 
-// Main Page Component
 export default function IletisimPage() {
   return (
     <>

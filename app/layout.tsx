@@ -16,10 +16,6 @@ export const metadata: Metadata = {
     template: "%s | TOBB Turizm MTAL Uygulama Oteli",
   },
   description: "Türkiye Odalar ve Borsalar Birliği Turizm Mesleki ve Teknik Anadolu Lisesi Uygulama Oteli - 30 odalı, 60 yatak kapasiteli modern tesislerimizle öğrencilere iş hayatı öncesi deneyim sunuyoruz.",
-  icons: {
-    icon: "/assets/logos/logo_mavi.png",
-    apple: "/assets/logos/logo_mavi.png",
-  },
 };
 
 export default function RootLayout({
@@ -29,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
+      <head>
+        <link rel="icon" href="/assets/logos/logo_mavi.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/assets/logos/logo_mavi.png" />
+      </head>
       <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
