@@ -220,6 +220,10 @@ export const testimonials: Testimonial[] = [
 
 export const contactInfo = {
   phone: "0476 228 60 30",
+  whatsapp: "05530517676",
+  whatsappUrl: "https://wa.me/905530517676",
+  instagram: "igdirturizmlisesiuygulamaoteli",
+  instagramUrl: "https://www.instagram.com/igdirturizmlisesiuygulamaoteli",
   email: "info@ornek-otel.edu.tr",
   address: "14 Kasım Mah. İlham Aliyev Cad. No: 282, Merkez, Iğdır (TÜVTÜRK Muayene İstasyonu Karşısı)",
   mapUrl: "https://maps.app.goo.gl/eJuv265RmFV4dPGM8?g_st=iw",

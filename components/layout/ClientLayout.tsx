@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { CookieBanner } from "@/components/cookies/CookieBanner";
+import { LanguageProvider } from "@/lib/i18n";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -62,7 +63,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   return (
-    <>
+    <LanguageProvider>
       <Navbar />
       <main className="min-h-screen w-full overflow-x-hidden">
         {children}
@@ -70,7 +71,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
       <Footer />
       <ScrollToTop />
       <CookieBanner />
-    </>
+    </LanguageProvider>
   );
 }
 

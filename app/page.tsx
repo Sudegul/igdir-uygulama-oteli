@@ -20,11 +20,14 @@ import {
   GraduationCap,
   ChevronRight
 } from "lucide-react";
-import { fadeInUp, staggerContainer, staggerItem, heroVariants, heroItem } from "@/lib/animations";
+import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { contactInfo } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n";
 
 // Hero Section - Elegant Split Design
 function HeroSection() {
+  const { t } = useTranslation();
+  
   return (
     <section className="relative min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-128px)] overflow-hidden">
       {/* Gradient Background */}
@@ -32,17 +35,15 @@ function HeroSection() {
       
       {/* Animated Grid Lines */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Vertical lines */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `repeating-linear-gradient(90deg, white 0px, white 1px, transparent 1px, transparent 100px)`,
         }} />
-        {/* Horizontal lines */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `repeating-linear-gradient(0deg, white 0px, white 1px, transparent 1px, transparent 100px)`,
         }} />
       </div>
 
-      {/* Gradient Orbs - Multiple layers */}
+      {/* Gradient Orbs */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/30 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4 animate-pulse" style={{ animationDuration: '8s' }} />
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-violet-500/15 rounded-full blur-[120px] -translate-x-1/3" />
       <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-amber-500/15 rounded-full blur-[130px] translate-y-1/2" />
@@ -68,10 +69,10 @@ function HeroSection() {
               transition={{ duration: 0.7 }}
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 lg:mb-8 leading-[1.05] tracking-tight"
             >
-              Iğdır'ın Kalbinde
+              {t("hero.title1")}
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500">
-                Konforlu Konaklama
+                {t("hero.title2")}
               </span>
             </motion.h1>
 
@@ -81,8 +82,7 @@ function HeroSection() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="text-lg md:text-xl text-slate-300 mb-8 max-w-xl leading-relaxed font-light"
             >
-              TOBB Turizm Mesleki ve Teknik Anadolu Lisesi Uygulama Oteli'nde 
-              30 odalı modern tesisimizle unutulmaz bir deneyim sunuyoruz.
+              {t("hero.description")}
             </motion.p>
 
             {/* CTA Buttons */}
@@ -97,7 +97,7 @@ function HeroSection() {
                   size="lg"
                   className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-6 text-base font-semibold group shadow-xl shadow-amber-500/20 border-0"
                 >
-                  Rezervasyon Yap
+                  {t("common.makeReservation")}
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
@@ -107,7 +107,7 @@ function HeroSection() {
                   variant="outline"
                   className="px-8 py-6 text-base font-medium border-2 border-white/20 text-white bg-white/5 hover:bg-white/10 hover:border-white/30 backdrop-blur-sm"
                 >
-                  Bizi Tanıyın
+                  {t("hero.meetUs")}
                 </Button>
               </Link>
             </motion.div>
@@ -120,13 +120,13 @@ function HeroSection() {
               className="flex flex-wrap gap-6 md:gap-10"
             >
               {[
-                { value: "30", label: "Modern Oda" },
-                { value: "60", label: "Yatak Kapasitesi" },
-                { value: "100+", label: "Kişilik Restoran" },
+                { value: "30", labelKey: "hero.modernRooms" },
+                { value: "60", labelKey: "hero.bedCapacity" },
+                { value: "100+", labelKey: "hero.restaurantCapacity" },
               ].map((stat, i) => (
                 <div key={i} className="flex items-baseline gap-2">
                   <span className="text-3xl md:text-4xl font-bold text-white">{stat.value}</span>
-                  <span className="text-xs md:text-sm text-slate-400 font-medium">{stat.label}</span>
+                  <span className="text-xs md:text-sm text-slate-400 font-medium">{t(stat.labelKey)}</span>
                 </div>
               ))}
             </motion.div>
@@ -147,10 +147,7 @@ function HeroSection() {
                 priority
                 className="object-cover"
               />
-              {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
-              
-              {/* Corner accent */}
               <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-amber-500/20 to-transparent" />
             </div>
 
@@ -166,8 +163,8 @@ function HeroSection() {
                   <Star className="h-5 w-5 text-amber-500" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-slate-900">Kaliteli Hizmet</div>
-                  <div className="text-xs text-slate-500">Profesyonel Ekip</div>
+                  <div className="text-sm font-semibold text-slate-900">{t("hero.qualityService")}</div>
+                  <div className="text-xs text-slate-500">{t("hero.professionalTeam")}</div>
                 </div>
               </div>
             </motion.div>
@@ -185,6 +182,7 @@ function HeroSection() {
 function AboutPreview() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   return (
     <section ref={ref} className="py-24 bg-white">
@@ -212,8 +210,8 @@ function AboutPreview() {
                   <GraduationCap className="h-7 w-7 text-primary" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-primary">Eğitim</div>
-                  <div className="text-sm text-gray-500">Odaklı Hizmet</div>
+                  <div className="text-2xl font-bold text-primary">{t("about.educationFocused").split(" ")[0]}</div>
+                  <div className="text-sm text-gray-500">{t("about.educationFocused").split(" ").slice(1).join(" ")}</div>
                 </div>
               </div>
             </div>
@@ -226,39 +224,36 @@ function AboutPreview() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Eğitim ve Konforun
+              {t("preview.aboutTitle1")}
               <br />
-              <span className="text-primary">Buluştuğu Nokta</span>
+              <span className="text-primary">{t("preview.aboutTitle2")}</span>
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              TOBB Turizm Mesleki ve Teknik Anadolu Lisesi bünyesinde açılan uygulama otelimiz, 
-              öğrencilere iş hayatı öncesi deneyim sunarken, misafirlerimize de modern ve 
-              konforlu bir konaklama imkanı sağlamaktadır.
+              {t("about.description1")}
             </p>
             <p className="text-gray-600 leading-relaxed mb-8">
-              Ağrı Dağı manzarası eşliğinde, şehir gürültüsünden uzak, huzurlu bir ortamda 
-              konaklama, kahvaltı ve yemek hizmetleri sunuyoruz.
+              {t("about.description2")}
             </p>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               {[
-                { icon: Bed, text: "30 Oda, 60 Yatak" },
-                { icon: Utensils, text: "100 Kişilik Restoran" },
-                { icon: Users, text: "Konferans Salonu" },
-                { icon: Star, text: "Eşsiz Manzara" },
+                { icon: Bed, textKey: "facilities.rooms30beds60" },
+                { icon: Utensils, textKey: "about.restaurantCapacity" },
+                { icon: Users, textKey: "facilities.conferenceHall" },
+                { icon: Star, textKey: "about.feature3Title" },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
                     <item.icon className="h-5 w-5 text-accent" />
                   </div>
-                  <span className="text-sm font-medium text-gray-700">{item.text}</span>
+                  <span className="text-sm font-medium text-gray-700">{t(item.textKey)}</span>
                 </div>
               ))}
             </div>
 
             <Link href="/hakkimizda" scroll={false}>
               <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-white">
-                Daha Fazla Bilgi
+                {t("common.learnMore")}
                 <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
@@ -273,19 +268,20 @@ function AboutPreview() {
 function RoomsPreview() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const rooms = [
     {
-      title: "Standart Oda",
-      description: "26 adet standart odamız ile konforlu konaklama",
+      titleKey: "rooms.standardRoom",
+      descKey: "preview.standardRoomDesc",
       image: "/assets/images/tek_kisilik_yatakli_odalar.jpeg",
-      features: ["Çift Kişilik Yatak", "Klima", "Ücretsiz Wi-Fi", "TV"],
+      featuresKeys: ["rooms.doubleBed", "rooms.airConditioning", "rooms.freeWifi", "rooms.lcdTv"],
     },
     {
-      title: "Süit Oda",
-      description: "4 adet süit odamız ile lüks konaklama deneyimi",
+      titleKey: "rooms.suiteRoom",
+      descKey: "preview.suiteRoomDesc",
       image: "/assets/images/cift_kisilik_yatakli_oda.jpg",
-      features: ["Geniş Alan", "Oturma Grubu", "Mini Bar", "Premium Hizmet"],
+      featuresKeys: ["rooms.sittingArea", "rooms.miniBar", "rooms.smartTv", "rooms.highSpeedWifi"],
     },
   ];
 
@@ -299,10 +295,10 @@ function RoomsPreview() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Konforlu Odalarımız
+            {t("preview.roomsTitle")}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Modern tasarımlı odalarımızda huzurlu bir konaklama deneyimi sizi bekliyor.
+            {t("preview.roomsDesc")}
           </p>
         </motion.div>
 
@@ -321,22 +317,22 @@ function RoomsPreview() {
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={room.image}
-                  alt={room.title}
+                  alt={t(room.titleKey)}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{room.title}</h3>
-                <p className="text-gray-600 mb-4">{room.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t(room.titleKey)}</h3>
+                <p className="text-gray-600 mb-4">{t(room.descKey)}</p>
                 <div className="flex flex-wrap gap-2">
-                  {room.features.map((feature, i) => (
+                  {room.featuresKeys.map((featureKey, i) => (
                     <span
                       key={i}
                       className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
                     >
-                      {feature}
+                      {t(featureKey)}
                     </span>
                   ))}
                 </div>
@@ -353,7 +349,7 @@ function RoomsPreview() {
         >
           <Link href="/odalar-tesisler" scroll={false}>
             <Button className="bg-primary hover:bg-primary/90 text-white px-8 group">
-              Tüm Odaları Gör
+              {t("preview.seeAllRooms")}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -367,14 +363,15 @@ function RoomsPreview() {
 function ServicesPreview() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const services = [
-    { icon: Utensils, title: "Restoran", desc: "100 kişilik restoran ve fuaye", color: "from-amber-500 to-orange-500" },
-    { icon: Coffee, title: "Seyir Kafesi", desc: "Ağrı Dağı manzaralı kafe", color: "from-rose-500 to-pink-500" },
-    { icon: Users, title: "Konferans Salonu", desc: "60 kişilik konferans salonu", color: "from-violet-500 to-purple-500" },
-    { icon: Car, title: "Otopark", desc: "Açık ve kapalı otopark", color: "from-emerald-500 to-teal-500" },
-    { icon: Wifi, title: "Ücretsiz Wi-Fi", desc: "Tüm alanlarda internet", color: "from-blue-500 to-cyan-500" },
-    { icon: Bed, title: "24/7 Resepsiyon", desc: "Günün her saati hizmet", color: "from-indigo-500 to-blue-500" },
+    { icon: Utensils, titleKey: "preview.restaurant", descKey: "preview.restaurantDesc", color: "from-amber-500 to-orange-500" },
+    { icon: Coffee, titleKey: "preview.observationCafe", descKey: "preview.observationCafeDesc", color: "from-rose-500 to-pink-500" },
+    { icon: Users, titleKey: "preview.conferenceHall", descKey: "preview.conferenceHallDesc", color: "from-violet-500 to-purple-500" },
+    { icon: Car, titleKey: "preview.parking", descKey: "preview.parkingDesc", color: "from-emerald-500 to-teal-500" },
+    { icon: Wifi, titleKey: "preview.freeWifi", descKey: "preview.freeWifiDesc", color: "from-blue-500 to-cyan-500" },
+    { icon: Bed, titleKey: "preview.reception24", descKey: "preview.reception24Desc", color: "from-indigo-500 to-blue-500" },
   ];
 
   return (
@@ -393,10 +390,10 @@ function ServicesPreview() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Size Sunduklarımız
+            {t("preview.servicesTitle")}
           </h2>
           <p className="text-slate-300 max-w-2xl mx-auto text-lg">
-            Konforlu konaklama deneyiminiz için tüm ihtiyaçlarınızı düşündük.
+            {t("preview.servicesDesc")}
           </p>
         </motion.div>
 
@@ -415,8 +412,8 @@ function ServicesPreview() {
               <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 <service.icon className="h-8 w-8 text-white" />
               </div>
-              <h3 className="font-semibold text-white mb-1">{service.title}</h3>
-              <p className="text-sm text-slate-400">{service.desc}</p>
+              <h3 className="font-semibold text-white mb-1">{t(service.titleKey)}</h3>
+              <p className="text-sm text-slate-400">{t(service.descKey)}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -429,7 +426,7 @@ function ServicesPreview() {
         >
           <Link href="/hizmetler" scroll={false}>
             <Button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-6 text-base group font-semibold shadow-lg shadow-amber-500/20 border-0">
-              Tüm Hizmetleri Gör
+              {t("preview.seeAllServices")}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -443,6 +440,7 @@ function ServicesPreview() {
 function GalleryPreview() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const galleryImages = [
     { src: "/assets/images/lobi_2.jpg", span: "col-span-2 row-span-2" },
@@ -463,12 +461,12 @@ function GalleryPreview() {
         >
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Tesisimizden Kareler
+              {t("cta.fromOurFacility")}
             </h2>
           </div>
           <Link href="/galeri" scroll={false} className="mt-4 md:mt-0">
             <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-white">
-              Tüm Galeri
+              {t("cta.allGallery")}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -488,7 +486,7 @@ function GalleryPreview() {
             >
               <Image
                 src={img.src}
-                alt={`Galeri ${index + 1}`}
+                alt={`${t("nav.gallery")} ${index + 1}`}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
@@ -505,6 +503,7 @@ function GalleryPreview() {
 function CTASection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   return (
     <section ref={ref} className="py-24 bg-gray-50">
@@ -530,11 +529,10 @@ function CTASection() {
           {/* Content */}
           <div className="relative px-8 py-16 md:px-16 md:py-20 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Rezervasyon İçin Bizi Arayın
+              {t("cta.callForReservation")}
             </h2>
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-              Ağrı Dağı manzarası eşliğinde unutulmaz bir konaklama deneyimi için 
-              hemen iletişime geçin.
+              {t("cta.unforgettableExperience")}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -547,7 +545,7 @@ function CTASection() {
               <Link href="/iletisim" scroll={false}>
                 <Button size="lg" className="bg-white/10 border-2 border-white/30 text-white hover:bg-white/20 hover:border-white/50 px-8 py-6 text-lg backdrop-blur-sm">
                   <MapPin className="mr-2 h-5 w-5" />
-                  Konum ve İletişim
+                  {t("cta.locationAndContact")}
                 </Button>
               </Link>
             </div>

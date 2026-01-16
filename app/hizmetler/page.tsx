@@ -15,31 +15,29 @@ import {
   Wifi,
   Car,
   Droplet,
-  MapPin,
   Shield,
-  Briefcase,
   GraduationCap,
   Phone,
   Heart,
   UtensilsCrossed,
   Dumbbell,
-  Sparkles
+  Sparkles,
+  Briefcase
 } from "lucide-react";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { contactInfo } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n";
 
 // Page Header
 function PageHeader() {
+  const { t } = useTranslation();
+  
   return (
     <section className="relative py-16 md:py-20 overflow-hidden">
-      {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-      
-      {/* Decorative Orbs */}
       <div className="absolute top-0 left-1/3 w-72 h-72 bg-violet-500/20 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 right-1/3 w-64 h-64 bg-rose-500/20 rounded-full blur-[80px]" />
       
-      {/* Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
@@ -55,15 +53,14 @@ function PageHeader() {
           className="text-center"
         >
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Hizmetlerimiz
+            {t("services.pageTitle")}
           </h1>
           <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Misafirlerimizin konforu için sunduğumuz kapsamlı hizmetler.
+            {t("services.pageDescription")}
           </p>
         </motion.div>
       </div>
 
-      {/* Bottom Wave */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
           <path d="M0 40L48 37.3C96 34.7 192 29.3 288 26.7C384 24 480 24 576 26.7C672 29.3 768 34.7 864 36C960 37.3 1056 34.7 1152 32C1248 29.3 1344 26.7 1392 25.3L1440 24V40H1392C1344 40 1248 40 1152 40C1056 40 960 40 864 40C768 40 672 40 576 40C480 40 384 40 288 40C192 40 96 40 48 40H0Z" fill="white"/>
@@ -77,28 +74,29 @@ function PageHeader() {
 function MainServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const services = [
     {
       icon: Utensils,
-      title: "Restoran Hizmeti",
-      description: "100 kişilik restoranımızda zengin Türk mutfağı ve uluslararası lezzetler sunuyoruz. Kahvaltı, öğle ve akşam yemeği servisi mevcuttur.",
+      titleKey: "services.restaurantService",
+      descKey: "services.restaurantServiceDesc",
       image: "/assets/images/restoran_cafe.jpg",
-      features: ["Açık Büfe Kahvaltı", "A La Carte Menü", "Grup Menüleri", "Özel Diyet Menüleri"],
+      featuresKeys: ["services.openBuffet", "services.aLaCarte", "services.groupMenus", "services.dietMenus"],
     },
     {
       icon: Coffee,
-      title: "Seyir Kafesi",
-      description: "Ağrı Dağı'nın muhteşem manzarası eşliğinde kahve ve içecek keyfi. Mocktail çeşitleri ve atıştırmalıklar.",
+      titleKey: "services.observationCafe",
+      descKey: "services.observationCafeDesc",
       image: "/assets/images/kafetarya.JPG",
-      features: ["Manzaralı Teras", "Sıcak/Soğuk İçecekler", "Tatlı Çeşitleri", "Lounge Alan"],
+      featuresKeys: ["services.viewTerrace", "services.hotColdDrinks", "services.desserts", "services.loungeArea"],
     },
     {
       icon: Users,
-      title: "Konferans & Toplantı",
-      description: "60 kişilik konferans salonu ve çeşitli kapasitelerde toplantı odaları. Profesyonel ekipman desteği.",
+      titleKey: "services.conferenceService",
+      descKey: "services.conferenceServiceDesc",
       image: "/assets/images/konferans.JPG",
-      features: ["Projeksiyon Sistemi", "Ses Sistemi", "Yüksek Hızlı Internet", "Teknik Destek"],
+      featuresKeys: ["services.projectionSystem", "services.soundSystem", "services.highSpeedInternet", "services.technicalSupport"],
     },
   ];
 
@@ -112,10 +110,10 @@ function MainServicesSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Öne Çıkan Hizmetlerimiz
+            {t("services.featuredServices")}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Konforlu konaklama deneyiminiz için sunduğumuz premium hizmetler.
+            {t("services.featuredDesc")}
           </p>
         </motion.div>
 
@@ -128,12 +126,11 @@ function MainServicesSection() {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center`}
             >
-              {/* Image */}
               <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-hotel-lg">
                   <Image
                     src={service.image}
-                    alt={service.title}
+                    alt={t(service.titleKey)}
                     fill
                     className="object-cover"
                   />
@@ -145,20 +142,19 @@ function MainServicesSection() {
                 </div>
               </div>
 
-              {/* Content */}
               <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  {service.title}
+                  {t(service.titleKey)}
                 </h3>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                  {service.description}
+                  {t(service.descKey)}
                 </p>
 
                 <div className="grid grid-cols-2 gap-3">
-                  {service.features.map((feature, i) => (
+                  {service.featuresKeys.map((featureKey, i) => (
                     <div key={i} className="flex items-center gap-2 text-gray-700">
                       <div className="w-2 h-2 bg-accent rounded-full" />
-                      <span className="text-sm font-medium">{feature}</span>
+                      <span className="text-sm font-medium">{t(featureKey)}</span>
                     </div>
                   ))}
                 </div>
@@ -175,20 +171,21 @@ function MainServicesSection() {
 function AllServicesGrid() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const services = [
-    { icon: Clock, title: "24/7 Resepsiyon", desc: "Günün her saati hizmetinizdeyiz" },
-    { icon: Droplet, title: "Çamaşırhane", desc: "Çamaşırhane ve kuru temizleme" },
-    { icon: null, iconPath: "/assets/icons/mosque.svg", title: "Mescit", desc: "Dini ibadetleriniz için mescit" },
-    { icon: Shield, title: "Özel Menü", desc: "Gruplar için özel menü uygulaması" },
-    { icon: Heart, title: "Çocuk Konaklama", desc: "7 yaşına kadar ücretsiz" },
-    { icon: GraduationCap, title: "Eğitim Hizmeti", desc: "Öğrencilere pratik deneyim" },
-    { icon: Wifi, title: "Ücretsiz Wi-Fi", desc: "Tüm alanlarda yüksek hızlı internet" },
-    { icon: Car, title: "Otopark", desc: "Açık ve kapalı otopark alanı" },
-    { icon: Dumbbell, title: "Spor Salonu", desc: "Modern fitness ekipmanları" },
-    { icon: UtensilsCrossed, title: "Room Service", desc: "Odanıza yemek servisi" },
-    { icon: Sparkles, title: "Oda Temizliği", desc: "Günlük oda temizliği" },
-    { icon: Briefcase, title: "İş Merkezi", desc: "Çalışma alanı ve ofis hizmetleri" },
+    { icon: Clock, titleKey: "services.reception24", descKey: "services.reception24Desc" },
+    { icon: Droplet, titleKey: "services.laundry", descKey: "services.laundryDesc" },
+    { icon: null, iconPath: "/assets/icons/mosque.svg", titleKey: "services.mosque", descKey: "services.mosqueDesc" },
+    { icon: Shield, titleKey: "services.specialMenu", descKey: "services.specialMenuDesc" },
+    { icon: Heart, titleKey: "services.childAccommodation", descKey: "services.childAccommodationDesc" },
+    { icon: GraduationCap, titleKey: "services.educationService", descKey: "services.educationServiceDesc" },
+    { icon: Wifi, titleKey: "services.freeWifi", descKey: "services.freeWifiDesc" },
+    { icon: Car, titleKey: "services.parking", descKey: "services.parkingDesc" },
+    { icon: Dumbbell, titleKey: "services.gym", descKey: "services.gymDesc" },
+    { icon: UtensilsCrossed, titleKey: "services.roomService", descKey: "services.roomServiceDesc" },
+    { icon: Sparkles, titleKey: "services.roomCleaning", descKey: "services.roomCleaningDesc" },
+    { icon: Briefcase, titleKey: "services.businessCenter", descKey: "services.businessCenterDesc" },
   ];
 
   return (
@@ -201,10 +198,10 @@ function AllServicesGrid() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Size Sunduklarımız
+            {t("services.whatWeOffer")}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Konforlu konaklama deneyiminiz için tüm ihtiyaçlarınızı düşündük.
+            {t("services.whatWeOfferDesc")}
           </p>
         </motion.div>
 
@@ -226,15 +223,15 @@ function AllServicesGrid() {
                 ) : service.iconPath ? (
                   <Image 
                     src={service.iconPath} 
-                    alt={service.title} 
+                    alt={t(service.titleKey)} 
                     width={28} 
                     height={28} 
                     className="text-primary group-hover:brightness-0 group-hover:invert transition-all" 
                   />
                 ) : null}
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1">{service.title}</h3>
-              <p className="text-sm text-gray-500">{service.desc}</p>
+              <h3 className="font-semibold text-gray-900 mb-1">{t(service.titleKey)}</h3>
+              <p className="text-sm text-gray-500">{t(service.descKey)}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -247,6 +244,7 @@ function AllServicesGrid() {
 function SpecialFeatures() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   return (
     <section ref={ref} className="py-24 bg-primary text-white">
@@ -258,31 +256,25 @@ function SpecialFeatures() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Öğrencilerimizle
-              <br />
-              <span className="text-accent">Profesyonel Hizmet</span>
+              {t("services.professionalService")}
             </h2>
             <p className="text-white/80 text-lg mb-6 leading-relaxed">
-              Turizm Mesleki ve Teknik Anadolu Lisesi olarak, öğrencilerimize gerçek otel 
-              ortamında pratik yapma imkanı sunuyoruz. Bu sayede hem öğrencilerimiz 
-              sektöre hazırlanıyor hem de misafirlerimiz özenli bir hizmet alıyor.
+              {t("services.professionalServiceDesc1")}
             </p>
             <p className="text-white/80 leading-relaxed mb-8">
-              Her yıl 10. ve 11. sınıf öğrencilerimiz Türkiye'nin en prestijli otellerinde 
-              staj yaparak edindiği deneyimleri otelimize taşıyor. Bu yenilikçi yaklaşımımız 
-              sayesinde sürekli gelişen bir hizmet kalitesi sunuyoruz.
+              {t("services.professionalServiceDesc2")}
             </p>
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { value: "5★", label: "Yıldızlı Staj Otelleri" },
-                { value: "5 Ay", label: "Staj Süresi" },
-                { value: "3 İl", label: "Staj Lokasyonu" },
-                { value: "∞", label: "Yenilikçi Uygulama" },
+                { value: "5★", labelKey: "services.starInternshipHotels" },
+                { value: "5", labelKey: "services.internshipDuration" },
+                { value: "3", labelKey: "services.internshipLocation" },
+                { value: "∞", labelKey: "services.innovativeApproach" },
               ].map((stat, i) => (
                 <div key={i} className="text-center p-4 bg-white/5 rounded-xl">
                   <div className="text-2xl font-bold text-accent mb-1">{stat.value}</div>
-                  <div className="text-sm text-white/70">{stat.label}</div>
+                  <div className="text-sm text-white/70">{t(stat.labelKey)}</div>
                 </div>
               ))}
             </div>
@@ -304,15 +296,14 @@ function SpecialFeatures() {
               <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
             </div>
             
-            {/* Floating Stats */}
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-hotel-lg">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center">
                   <GraduationCap className="h-7 w-7 text-accent" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-gray-900">Eğitim</div>
-                  <div className="text-sm text-gray-500">Odaklı Hizmet</div>
+                  <div className="text-2xl font-bold text-gray-900">{t("about.educationFocused").split(" ")[0]}</div>
+                  <div className="text-sm text-gray-500">{t("about.educationFocused").split(" ").slice(1).join(" ")}</div>
                 </div>
               </div>
             </div>
@@ -325,15 +316,17 @@ function SpecialFeatures() {
 
 // CTA Section
 function CTASection() {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-24 bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Hizmetlerimiz Hakkında Bilgi Alın
+            {t("services.ctaTitle")}
           </h2>
           <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-            Sorularınız için bizimle iletişime geçebilir veya rezervasyon yapabilirsiniz.
+            {t("services.ctaDesc")}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}>
@@ -344,7 +337,7 @@ function CTASection() {
             </a>
             <Link href="/iletisim" scroll={false}>
               <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-8">
-                İletişim Sayfası
+                {t("rooms.contactPage")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -367,4 +360,3 @@ export default function HizmetlerPage() {
     </>
   );
 }
-

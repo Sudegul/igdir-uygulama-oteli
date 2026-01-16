@@ -11,9 +11,10 @@ import {
   type CookiePreferences,
 } from "./cookieUtils";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/lib/i18n";
 
 const defaultPreferences: CookiePreferences = {
-  necessary: true, // Always true
+  necessary: true,
   performance: false,
   advertising: false,
   functional: false,
@@ -26,12 +27,12 @@ export function CookieBanner() {
   const [showPreferences, setShowPreferences] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>(defaultPreferences);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (shouldShowBanner()) {
       setIsVisible(true);
     } else {
-      // Load existing preferences if any
       const existing = getCookiePreferences();
       if (existing) {
         setPreferences(existing);
@@ -39,7 +40,6 @@ export function CookieBanner() {
     }
   }, []);
 
-  // Disable body scroll when modal is open
   useEffect(() => {
     if (showPreferences) {
       document.body.style.overflow = "hidden";
@@ -52,7 +52,7 @@ export function CookieBanner() {
   }, [showPreferences]);
 
   const toggleCategory = (category: keyof CookiePreferences) => {
-    if (category === "necessary") return; // Cannot disable necessary cookies
+    if (category === "necessary") return;
 
     setPreferences((prev) => ({
       ...prev,
@@ -84,7 +84,7 @@ export function CookieBanner() {
 
   const handleRejectAll = () => {
     const rejected: CookiePreferences = {
-      necessary: true, // Always true
+      necessary: true,
       performance: false,
       advertising: false,
       functional: false,
@@ -138,35 +138,27 @@ export function CookieBanner() {
                 <button
                   onClick={handleRejectAll}
                   className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label="Kapat"
+                  aria-label={t("common.close")}
                 >
                   <X className="h-4 w-4" />
                 </button>
                 <div className="pr-7">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    Çerez Kullanımı
+                    {t("cookie.title")}
                   </h3>
                   <p className="text-xs text-gray-700 mb-1.5 leading-normal">
-                    Sitemizde deneyiminizi iyileştirmek, kişiselleştirme tercihlerinizi
-                    hatırlamak, sitemizin performansını optimize etmek ve pazarlama
-                    faaliyetleri yürütmek amacıyla çerezler ve diğer tanımlama
-                    teknolojilerini kullanıyoruz. Çerez ve diğer tanımlama teknolojilerinin
-                    tamamına onay vermeniz halinde "Tümünü Kabul Et" ve tamamını reddetmeniz
-                    halinde ise "Tümünü Reddet" seçeneği ile ilerleyebilirsiniz. Ayrıca,
-                    "Tercihlerimi Yönet" menüsünden butonları tercihinize göre açık veya
-                    kapalı konuma getirerek onaylarınızı her zaman özelleştirebilir ve
-                    tercihlerinizi kaydedebilirsiniz.
+                    {t("cookie.description")}
                   </p>
                   <p className="text-xs text-gray-600 mb-4">
-                    Daha fazla bilgi için lütfen{" "}
+                    {t("cookie.moreInfo")}{" "}
                     <a
                       href="#"
                       className="text-primary hover:underline"
                       onClick={(e) => e.preventDefault()}
                     >
-                      Çerez Politikamızı
+                      {t("cookie.cookiePolicy")}
                     </a>{" "}
-                    inceleyiniz.
+                    {t("cookie.review")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Button
@@ -174,7 +166,7 @@ export function CookieBanner() {
                       size="sm"
                       className="bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      Tümünü Kabul Et
+                      {t("cookie.acceptAll")}
                     </Button>
                     <Button
                       onClick={handleRejectAll}
@@ -182,7 +174,7 @@ export function CookieBanner() {
                       size="sm"
                       className="border-gray-300"
                     >
-                      Tümünü Reddet
+                      {t("cookie.rejectAll")}
                     </Button>
                     <Button
                       onClick={handleManagePreferences}
@@ -190,7 +182,7 @@ export function CookieBanner() {
                       size="sm"
                       className="border-gray-300"
                     >
-                      Tercihlerimi Yönet
+                      {t("cookie.managePreferences")}
                     </Button>
                   </div>
                 </div>
@@ -204,7 +196,6 @@ export function CookieBanner() {
       <AnimatePresence>
         {showPreferences && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -212,7 +203,6 @@ export function CookieBanner() {
               onClick={handleClosePreferences}
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
             />
-            {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -221,10 +211,9 @@ export function CookieBanner() {
               className="fixed inset-0 z-50 flex items-center justify-center p-4"
             >
               <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col">
-                {/* Header */}
                 <div className="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
                   <h2 className="text-lg font-bold text-gray-900">
-                    Çerez ve Tanımlama Teknolojileri Yönetim Paneli
+                    {t("cookie.preferencesTitle")}
                   </h2>
                   <button
                     onClick={handleClosePreferences}
@@ -234,44 +223,33 @@ export function CookieBanner() {
                   </button>
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 overflow-y-auto px-5 py-4">
                   <p className="text-xs text-gray-700 mb-4 leading-relaxed">
-                    Sitemizin performansını optimize etmek, deneyimlerinizi iyileştirmek,
-                    kişiselleştirme tercihlerinizi hatırlamak ve pazarlama faaliyetleri
-                    yürütmek amacıyla çerezler ve diğer tanımlama teknolojilerini
-                    kullanmaktayız. Aşağıda yer alan panel butonlarından çerezlere ilişkin
-                    tercihlerinizi her zaman özelleştirebilir ve tercihlerinizi
-                    kaydedebilirsiniz. Detaylı bilgi için lütfen{" "}
+                    {t("cookie.preferencesDesc")}{" "}
                     <a
                       href="#"
                       className="text-primary hover:underline"
                       onClick={(e) => e.preventDefault()}
                     >
-                      Çerez Politikamızı
-                    </a>{" "}
-                    ziyaret ediniz.
+                      {t("cookie.cookiePolicy")}
+                    </a>
                   </p>
 
-                  {/* Zorunlu Çerezler */}
+                  {/* Necessary Cookies */}
                   <div className="mb-4">
                     <h3 className="text-base font-semibold text-gray-900 mb-2">
-                      Zorunlu Çerezler
+                      {t("cookie.necessaryCookies")}
                     </h3>
                     <p className="text-xs text-gray-600 mb-3 leading-relaxed">
-                      Zorunlu çerezler, web sitemizin düzgün çalışmasını sağlamak ve bilgi
-                      toplumu hizmetlerinin yerine getirilebilmesi amacıyla kullanılır. Bu
-                      çerezlerin kullanımı için açık rızanız gerekmez. Tarayıcı ayarlarınızdan
-                      tüm çerezleri engelleyebilirsiniz, ancak bu durumda sitemizin bazı
-                      bölümlerinin düzgün çalışmayabileceğini hatırlatmak isteriz.
+                      {t("cookie.necessaryDesc")}
                     </p>
                     <div className="flex items-center gap-3 bg-gray-50 rounded-lg px-3 py-2">
                       <div className="flex-1">
                         <span className="text-xs font-medium text-gray-900">
-                          Zorunlu Çerezler
+                          {t("cookie.necessaryCookies")}
                         </span>
                         <p className="text-xs text-gray-500 mt-0.5">
-                          Her zaman aktif - Devre dışı bırakılamaz
+                          {t("cookie.alwaysActive")}
                         </p>
                       </div>
                       <div className="w-10 h-5 bg-primary rounded-full flex items-center justify-end px-0.5">
@@ -280,61 +258,57 @@ export function CookieBanner() {
                     </div>
                   </div>
 
-                  {/* Zorunlu Olmayan Çerezler */}
+                  {/* Optional Cookies */}
                   <div>
                     <h3 className="text-base font-semibold text-gray-900 mb-3">
-                      Zorunlu Olmayan Çerezler
+                      {t("cookie.optionalCookies")}
                     </h3>
 
-                    {/* Performans ve Analiz */}
                     <CookieCategory
-                      title="Performans ve Analiz Çerezleri"
-                      description="Kullanıcı davranışlarını analiz etmek ve site performansını optimize etmek için kullanılır."
+                      title={t("cookie.performanceCookies")}
+                      description={t("cookie.performanceDesc")}
                       enabled={preferences.performance}
                       onToggle={() => toggleCategory("performance")}
                       isExpanded={expandedCategories.includes("performance")}
                       onToggleExpand={() => toggleCategoryExpansion("performance")}
                       cookies={[
-                        { name: "_ga", purpose: "Google Analytics, kullanıcı oturumlarını ve etkinliklerini analiz eder." },
-                        { name: "_gid", purpose: "Google Analytics, oturum bazlı kullanıcı izleme." },
-                        { name: "_clck", purpose: "Microsoft Clarity, kullanıcı gezinme alışkanlıklarını anlamak için." },
-                        { name: "_clsk", purpose: "Microsoft Clarity, oturum verilerini birleştirmek için." },
+                        { name: "_ga", purpose: "Google Analytics, user session analysis." },
+                        { name: "_gid", purpose: "Google Analytics, session-based user tracking." },
+                        { name: "_clck", purpose: "Microsoft Clarity, user browsing habits." },
+                        { name: "_clsk", purpose: "Microsoft Clarity, session data." },
                       ]}
                     />
 
-                    {/* Reklam ve Hedefleme */}
                     <CookieCategory
-                      title="Reklam ve Hedefleme Çerezleri"
-                      description="Kullanıcı tercihlerini izlemek ve reklamları optimize etmek için kullanılır."
+                      title={t("cookie.advertisingCookies")}
+                      description={t("cookie.advertisingDesc")}
                       enabled={preferences.advertising}
                       onToggle={() => toggleCategory("advertising")}
                       isExpanded={expandedCategories.includes("advertising")}
                       onToggleExpand={() => toggleCategoryExpansion("advertising")}
                       cookies={[
-                        { name: "IDE", purpose: "Google DoubleClick, reklamları optimize etmek için." },
-                        { name: "SRM_B", purpose: "Microsoft Bing, reklam ve analiz amaçlı." },
-                        { name: "_fbp", purpose: "Facebook, reklam performansını izlemek için." },
-                        { name: "_gcl_au", purpose: "Google AdSense, reklam dönüşümlerini izlemek için." },
+                        { name: "IDE", purpose: "Google DoubleClick, ad optimization." },
+                        { name: "SRM_B", purpose: "Microsoft Bing, ads and analytics." },
+                        { name: "_fbp", purpose: "Facebook, ad performance tracking." },
+                        { name: "_gcl_au", purpose: "Google AdSense, conversion tracking." },
                       ]}
                     />
 
-                    {/* Fonksiyonel */}
                     <CookieCategory
-                      title="Fonksiyonel Çerezler"
-                      description="Web sitesinin işleyişini destekler ancak zorunlu değildir."
+                      title={t("cookie.functionalCookies")}
+                      description={t("cookie.functionalDesc")}
                       enabled={preferences.functional}
                       onToggle={() => toggleCategory("functional")}
                       isExpanded={expandedCategories.includes("functional")}
                       onToggleExpand={() => toggleCategoryExpansion("functional")}
                       cookies={[
-                        { name: "bcookie", purpose: "Tarayıcı kimliği doğrulama ve güvenlik için." },
-                        { name: "bscookie", purpose: "Oturum güvenliğini sağlamak için." },
+                        { name: "bcookie", purpose: "Browser identity and security." },
+                        { name: "bscookie", purpose: "Session security." },
                       ]}
                     />
                   </div>
                 </div>
 
-                {/* Footer */}
                 <div className="px-5 py-3 border-t border-gray-200 flex justify-end gap-2">
                   <Button
                     onClick={handleClosePreferences}
@@ -342,14 +316,14 @@ export function CookieBanner() {
                     size="sm"
                     className="border-gray-300"
                   >
-                    İptal
+                    {t("cookie.cancel")}
                   </Button>
                   <Button
                     onClick={handleSavePreferences}
                     size="sm"
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
                   >
-                    Kaydet
+                    {t("cookie.save")}
                   </Button>
                 </div>
               </div>
@@ -407,7 +381,7 @@ function CookieCategory({
             "relative w-10 h-5 rounded-full transition-colors duration-300 focus:outline-none",
             enabled ? "bg-primary" : "bg-gray-300"
           )}
-          aria-label={`${title} ${enabled ? "kapat" : "aç"}`}
+          aria-label={`${title} ${enabled ? "disable" : "enable"}`}
         >
           <span
             className={cn(

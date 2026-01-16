@@ -11,34 +11,28 @@ import {
   Bed, 
   Users, 
   Coffee, 
-  Utensils, 
   Wifi, 
-  Car,
   Tv,
   Wind,
   Bath,
-  Mountain,
   Phone,
-  Building,
-  Dumbbell,
   UtensilsCrossed,
   Check
 } from "lucide-react";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import { contactInfo } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n";
 
 // Page Header
 function PageHeader() {
+  const { t } = useTranslation();
+  
   return (
     <section className="relative py-16 md:py-20 overflow-hidden">
-      {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-      
-      {/* Decorative Orbs */}
       <div className="absolute top-0 right-1/4 w-72 h-72 bg-emerald-500/20 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-amber-500/20 rounded-full blur-[80px]" />
       
-      {/* Grid Pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
@@ -54,15 +48,14 @@ function PageHeader() {
           className="text-center"
         >
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Odalar & Tesisler
+            {t("rooms.pageTitle")}
           </h1>
           <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-            Modern ve konforlu odalarımız ile size en iyi konaklama deneyimini sunuyoruz.
+            {t("rooms.pageDescription")}
           </p>
         </motion.div>
       </div>
 
-      {/* Bottom Wave */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
           <path d="M0 40L48 37.3C96 34.7 192 29.3 288 26.7C384 24 480 24 576 26.7C672 29.3 768 34.7 864 36C960 37.3 1056 34.7 1152 32C1248 29.3 1344 26.7 1392 25.3L1440 24V40H1392C1344 40 1248 40 1152 40C1056 40 960 40 864 40C768 40 672 40 576 40C480 40 384 40 288 40C192 40 96 40 48 40H0Z" fill="white"/>
@@ -76,34 +69,35 @@ function PageHeader() {
 function RoomsSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const rooms = [
     {
-      title: "Standart Oda",
-      count: "26 Adet",
-      description: "Konforlu ve modern tasarımlı standart odalarımız, tüm temel ihtiyaçlarınızı karşılayacak şekilde donatılmıştır.",
+      titleKey: "rooms.standardRoom",
+      countKey: "rooms.standardRoomCount",
+      descKey: "rooms.standardRoomDesc",
       image: "/assets/images/tek_kisilik_yatakli_odalar.jpeg",
       features: [
-        { icon: Bed, text: "Çift Kişilik Yatak" },
-        { icon: Wind, text: "Klima" },
-        { icon: Wifi, text: "Ücretsiz Wi-Fi" },
-        { icon: Tv, text: "LCD TV" },
-        { icon: Bath, text: "Özel Banyo" },
-        { icon: Coffee, text: "Çay/Kahve" },
+        { icon: Bed, textKey: "rooms.doubleBed" },
+        { icon: Wind, textKey: "rooms.airConditioning" },
+        { icon: Wifi, textKey: "rooms.freeWifi" },
+        { icon: Tv, textKey: "rooms.lcdTv" },
+        { icon: Bath, textKey: "rooms.privateBathroom" },
+        { icon: Coffee, textKey: "rooms.teaCoffee" },
       ],
     },
     {
-      title: "Süit Oda",
-      count: "4 Adet",
-      description: "Geniş ve lüks süit odalarımız, ekstra konfor ve premium hizmetlerle donatılmıştır.",
+      titleKey: "rooms.suiteRoom",
+      countKey: "rooms.suiteRoomCount",
+      descKey: "rooms.suiteRoomDesc",
       image: "/assets/images/cift_kisilik_yatakli_oda.jpg",
       features: [
-        { icon: Bed, text: "King Size Yatak" },
-        { icon: Users, text: "Oturma Alanı" },
-        { icon: Wind, text: "Klima" },
-        { icon: Wifi, text: "Yüksek Hızlı Wi-Fi" },
-        { icon: Tv, text: "Smart TV" },
-        { icon: UtensilsCrossed, text: "Mini Bar" },
+        { icon: Bed, textKey: "rooms.kingSizeBed" },
+        { icon: Users, textKey: "rooms.sittingArea" },
+        { icon: Wind, textKey: "rooms.airConditioning" },
+        { icon: Wifi, textKey: "rooms.highSpeedWifi" },
+        { icon: Tv, textKey: "rooms.smartTv" },
+        { icon: UtensilsCrossed, textKey: "rooms.miniBar" },
       ],
     },
   ];
@@ -118,10 +112,10 @@ function RoomsSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Konforlu Odalarımız
+            {t("rooms.comfortableRooms")}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Toplam 30 oda ve 60 yatak kapasitesiyle misafirlerimizi ağırlıyoruz.
+            {t("rooms.roomsDescription")}
           </p>
         </motion.div>
 
@@ -136,28 +130,26 @@ function RoomsSection() {
                 index % 2 === 1 ? "lg:flex-row-reverse" : ""
               }`}
             >
-              {/* Image */}
               <div className={`relative ${index % 2 === 1 ? "lg:order-2" : ""}`}>
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-hotel-lg">
                   <Image
                     src={room.image}
-                    alt={room.title}
+                    alt={t(room.titleKey)}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="absolute -top-4 -right-4 bg-accent text-white px-4 py-2 rounded-lg font-semibold shadow-lg">
-                  {room.count}
+                  {t(room.countKey)}
                 </div>
               </div>
 
-              {/* Content */}
               <div className={index % 2 === 1 ? "lg:order-1" : ""}>
                 <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  {room.title}
+                  {t(room.titleKey)}
                 </h3>
                 <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                  {room.description}
+                  {t(room.descKey)}
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 mb-8">
@@ -166,14 +158,14 @@ function RoomsSection() {
                       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                         <feature.icon className="h-5 w-5 text-primary" />
                       </div>
-                      <span className="text-gray-700 font-medium">{feature.text}</span>
+                      <span className="text-gray-700 font-medium">{t(feature.textKey)}</span>
                     </div>
                   ))}
                 </div>
 
                 <Link href="/iletisim" scroll={false}>
                   <Button className="bg-primary hover:bg-primary/90 text-white group">
-                    Rezervasyon Yap
+                    {t("common.makeReservation")}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
@@ -190,12 +182,13 @@ function RoomsSection() {
 function RoomGallery() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const images = [
-    { src: "/assets/images/cift_kisilik_yatakli_oda.jpg", title: "Suit Oda" },
-    { src: "/assets/images/tek_kisilik_yatakli_odalar.jpeg", title: "Tek Kişilik Oda" },
-    { src: "/assets/images/oda_giris.jpg", title: "Oda Girişi" },
-    { src: "/assets/images/banyo.jpg", title: "Banyo" },
+    { src: "/assets/images/cift_kisilik_yatakli_oda.jpg", titleKey: "gallery.suiteRoom" },
+    { src: "/assets/images/tek_kisilik_yatakli_odalar.jpeg", titleKey: "gallery.singleRoom" },
+    { src: "/assets/images/oda_giris.jpg", titleKey: "gallery.roomEntrance" },
+    { src: "/assets/images/banyo.jpg", titleKey: "gallery.bathroom" },
   ];
 
   return (
@@ -208,7 +201,7 @@ function RoomGallery() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Oda Detayları
+            {t("rooms.roomDetails")}
           </h2>
         </motion.div>
 
@@ -226,13 +219,13 @@ function RoomGallery() {
             >
               <Image
                 src={img.src}
-                alt={img.title}
+                alt={t(img.titleKey)}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="absolute bottom-4 left-4 text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                {img.title}
+                {t(img.titleKey)}
               </div>
             </motion.div>
           ))}
@@ -241,7 +234,7 @@ function RoomGallery() {
         <div className="text-center mt-8">
           <Link href="/galeri" scroll={false}>
             <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white group">
-              Tüm Galeriyi Gör
+              {t("common.viewGallery")}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
@@ -255,44 +248,15 @@ function RoomGallery() {
 function FacilitiesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
   const facilities = [
-    {
-      icon: Utensils,
-      title: "Restoran & Fuaye",
-      description: "100 kişilik restoran ve fuaye alanımızda zengin menümüzle hizmet veriyoruz.",
-      image: "/assets/images/restoran_cafe.jpg",
-    },
-    {
-      icon: Coffee,
-      title: "Kafeterya",
-      description: "Ağrı Dağı manzaralı kafeteryamızda mocktail ve kahve çeşitleri.",
-      image: "/assets/images/kafetarya.JPG",
-    },
-    {
-      icon: Users,
-      title: "Konferans Salonu",
-      description: "60 kişilik konferans salonu ve eğitim toplantı odaları.",
-      image: "/assets/images/konferans.JPG",
-    },
-    {
-      icon: Building,
-      title: "Toplantı Odaları",
-      description: "Farklı kapasitelerde toplantı odaları ile iş toplantılarınız için ideal ortam.",
-      image: "/assets/images/toplanti_salonu.jpg",
-    },
-    {
-      icon: Dumbbell,
-      title: "Spor Salonu",
-      description: "Modern ekipmanlarla donatılmış spor salonumuz hizmetinizde.",
-      image: "/assets/images/spor_salonu.jpeg",
-    },
-    {
-      icon: Car,
-      title: "Otopark",
-      description: "Açık ve kapalı otopark alanlarımızla araçlarınız güvende.",
-      image: "/assets/images/otel_giris.jpg",
-    },
+    { titleKey: "rooms.restaurantFoyer", descKey: "rooms.restaurantFoyerDesc", image: "/assets/images/restoran_cafe.jpg" },
+    { titleKey: "rooms.cafeteria", descKey: "rooms.cafeteriaDesc", image: "/assets/images/kafetarya.JPG" },
+    { titleKey: "rooms.conferenceHall", descKey: "rooms.conferenceHallDesc", image: "/assets/images/konferans.JPG" },
+    { titleKey: "rooms.meetingRooms", descKey: "rooms.meetingRoomsDesc", image: "/assets/images/toplanti_salonu.jpg" },
+    { titleKey: "rooms.gym", descKey: "rooms.gymDesc", image: "/assets/images/spor_salonu.jpeg" },
+    { titleKey: "rooms.parking", descKey: "rooms.parkingDesc", image: "/assets/images/otel_giris.jpg" },
   ];
 
   return (
@@ -305,10 +269,10 @@ function FacilitiesSection() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Otel Tesisleri
+            {t("rooms.hotelFacilities")}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Modern tesislerimizle konforlu bir konaklama deneyimi sunuyoruz.
+            {t("rooms.facilitiesDescription")}
           </p>
         </motion.div>
 
@@ -327,20 +291,15 @@ function FacilitiesSection() {
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={facility.image}
-                  alt={facility.title}
+                  alt={t(facility.titleKey)}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-4 left-4">
-                  {/* <div className="w-12 h-12 rounded-lg bg-white/90 flex items-center justify-center">
-                    <facility.icon className="h-6 w-6 text-primary" />
-                  </div> */}
-                </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{facility.title}</h3>
-                <p className="text-gray-600">{facility.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{t(facility.titleKey)}</h3>
+                <p className="text-gray-600">{t(facility.descKey)}</p>
               </div>
             </motion.div>
           ))}
@@ -354,20 +313,21 @@ function FacilitiesSection() {
 function AmenitiesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useTranslation();
 
-  const amenities = [
-    "24/7 Resepsiyon",
-    "Ücretsiz Wi-Fi",
-    "Klima",
-    "LCD TV",
-    "Mini Bar",
-    "Çamaşırhane Hizmeti",
-    "Kuru Temizleme",
-    "Mescit",
-    "7 Yaşına Kadar Ücretsiz Konaklama",
-    "Özel Menü Uygulaması",
-    "Room Service",
-    "Ağrı Dağı Manzarası",
+  const amenitiesKeys = [
+    "rooms.reception24",
+    "rooms.freeWifi",
+    "rooms.airConditioning",
+    "rooms.lcdTv",
+    "rooms.miniBar",
+    "rooms.laundry",
+    "rooms.dryCleaning",
+    "rooms.mosque",
+    "rooms.freeChildAccommodation",
+    "rooms.specialMenu",
+    "rooms.roomService",
+    "rooms.mountainView",
   ];
 
   return (
@@ -380,7 +340,7 @@ function AmenitiesSection() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold">
-            Oda & Otel Olanakları
+            {t("rooms.roomAmenities")}
           </h2>
         </motion.div>
 
@@ -390,14 +350,14 @@ function AmenitiesSection() {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
-          {amenities.map((amenity, index) => (
+          {amenitiesKeys.map((amenityKey, index) => (
             <motion.div
               key={index}
               variants={staggerItem}
               className="flex items-center gap-3 p-4 rounded-xl bg-white/5"
             >
               <Check className="h-5 w-5 text-accent shrink-0" />
-              <span>{amenity}</span>
+              <span>{t(amenityKey)}</span>
             </motion.div>
           ))}
         </motion.div>
@@ -408,15 +368,17 @@ function AmenitiesSection() {
 
 // CTA Section
 function CTASection() {
+  const { t } = useTranslation();
+  
   return (
     <section className="py-24 bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Rezervasyon İçin Bizi Arayın
+            {t("rooms.ctaTitle")}
           </h2>
           <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-            Konforlu odalarımızda unutulmaz bir konaklama deneyimi için hemen iletişime geçin.
+            {t("rooms.ctaDesc")}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}>
@@ -427,7 +389,7 @@ function CTASection() {
             </a>
             <Link href="/iletisim" scroll={false}>
               <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-8">
-                İletişim Sayfası
+                {t("rooms.contactPage")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -451,4 +413,3 @@ export default function OdalarTesislerPage() {
     </>
   );
 }
-
