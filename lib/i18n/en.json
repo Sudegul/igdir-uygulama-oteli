@@ -292,6 +292,13 @@
     "gym": "Gym",
     "parking": "Parking"
   },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for may have been moved, deleted, or never existed.",
+    "backHome": "Back to Home",
+    "contact": "Contact Us",
+    "quickLinks": "Quick Access"
+  },
   "cookie": {
     "title": "Cookie Usage",
     "description": "We use cookies and other identification technologies on our site to improve your experience, remember your personalization preferences, optimize our site's performance and conduct marketing activities.",

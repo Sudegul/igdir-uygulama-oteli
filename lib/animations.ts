@@ -3,13 +3,13 @@ import { Variants } from "framer-motion";
 export const fadeInUp: Variants = {
   hidden: {
     opacity: 0,
-    y: 60,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: "easeOut",
     },
   },
@@ -22,7 +22,7 @@ export const fadeIn: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: "easeOut",
     },
   },
@@ -31,13 +31,13 @@ export const fadeIn: Variants = {
 export const scaleIn: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.8,
+    scale: 0.95,
   },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       ease: "easeOut",
     },
   },
@@ -45,13 +45,13 @@ export const scaleIn: Variants = {
 
 export const staggerContainer: Variants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
   },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
     },
   },
 };
@@ -59,13 +59,13 @@ export const staggerContainer: Variants = {
 export const staggerItem: Variants = {
   hidden: {
     opacity: 0,
-    y: 20,
+    y: 10,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.3,
       ease: "easeOut",
     },
   },
@@ -74,13 +74,13 @@ export const staggerItem: Variants = {
 export const slideInFromRight: Variants = {
   hidden: {
     opacity: 0,
-    x: 100,
+    x: 30,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: "easeOut",
     },
   },
@@ -89,13 +89,13 @@ export const slideInFromRight: Variants = {
 export const slideInFromLeft: Variants = {
   hidden: {
     opacity: 0,
-    x: -100,
+    x: -30,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.4,
       ease: "easeOut",
     },
   },
@@ -103,13 +103,13 @@ export const slideInFromLeft: Variants = {
 
 export const heroVariants: Variants = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
   },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,
-      delayChildren: 0.2,
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
     },
   },
 };
@@ -117,13 +117,13 @@ export const heroVariants: Variants = {
 export const heroItem: Variants = {
   hidden: {
     opacity: 0,
-    y: 30,
+    y: 15,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.4,
       ease: "easeOut",
     },
   },

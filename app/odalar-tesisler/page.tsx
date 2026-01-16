@@ -30,8 +30,8 @@ function PageHeader() {
   return (
     <section className="relative py-16 md:py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-      <div className="absolute top-0 right-1/4 w-72 h-72 bg-emerald-500/20 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-amber-500/20 rounded-full blur-[80px]" />
+      <div className="hidden md:block absolute top-0 right-1/4 w-72 h-72 bg-emerald-500/20 rounded-full blur-[100px]" />
+      <div className="hidden md:block absolute bottom-0 left-1/4 w-64 h-64 bg-amber-500/20 rounded-full blur-[80px]" />
       
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
@@ -185,7 +185,7 @@ function RoomGallery() {
   const { t } = useTranslation();
 
   const images = [
-    { src: "/assets/images/cift_kisilik_yatakli_oda.jpg", titleKey: "gallery.suiteRoom" },
+    { src: "/assets/images/suit_oda_2.jpeg", titleKey: "gallery.suiteRoom" },
     { src: "/assets/images/tek_kisilik_yatakli_odalar.jpeg", titleKey: "gallery.singleRoom" },
     { src: "/assets/images/oda_giris.jpg", titleKey: "gallery.roomEntrance" },
     { src: "/assets/images/banyo.jpg", titleKey: "gallery.bathroom" },

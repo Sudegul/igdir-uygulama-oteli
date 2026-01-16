@@ -292,6 +292,13 @@
     "gym": "İdman Zalı",
     "parking": "Dayanacaq"
   },
+  "notFound": {
+    "title": "Səhifə Tapılmadı",
+    "description": "Axtardığınız səhifə köçürülmüş, silinmiş və ya heç mövcud olmamış ola bilər.",
+    "backHome": "Ana Səhifəyə Qayıt",
+    "contact": "Əlaqə Saxla",
+    "quickLinks": "Sürətli Keçid"
+  },
   "cookie": {
     "title": "Çərəz İstifadəsi",
     "description": "Saytımızda təcrübənizi yaxşılaşdırmaq, fərdiləşdirmə seçimlərinizi xatırlamaq, saytımızın performansını optimallaşdırmaq və marketinq fəaliyyətləri həyata keçirmək məqsədilə çərəzlər və digər müəyyənləşdirmə texnologiyalarından istifadə edirik.",

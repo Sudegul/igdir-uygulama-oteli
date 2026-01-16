@@ -292,6 +292,13 @@
     "gym": "Spor Salonu",
     "parking": "Otopark"
   },
+  "notFound": {
+    "title": "Sayfa Bulunamadı",
+    "description": "Aradığınız sayfa taşınmış, silinmiş veya hiç var olmamış olabilir.",
+    "backHome": "Ana Sayfaya Dön",
+    "contact": "İletişime Geç",
+    "quickLinks": "Hızlı Erişim"
+  },
   "cookie": {
     "title": "Çerez Kullanımı",
     "description": "Sitemizde deneyiminizi iyileştirmek, kişiselleştirme tercihlerinizi hatırlamak, sitemizin performansını optimize etmek ve pazarlama faaliyetleri yürütmek amacıyla çerezler ve diğer tanımlama teknolojilerini kullanıyoruz.",

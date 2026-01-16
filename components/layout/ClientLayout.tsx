@@ -8,11 +8,38 @@ import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { CookieBanner } from "@/components/cookies/CookieBanner";
 import { LanguageProvider } from "@/lib/i18n";
 
+// Sayfa başlıkları
+const pageTitles: Record<string, string> = {
+  "/": "Ana Sayfa",
+  "/hakkimizda": "Hakkımızda",
+  "/odalar-tesisler": "Odalar & Tesisler",
+  "/hizmetler": "Hizmetler",
+  "/galeri": "Galeri",
+  "/iletisim": "İletişim",
+};
+
+const SITE_NAME = "TOBB Turizm MTAL Uygulama Oteli";
+
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const prevPathRef = useRef(pathname);
   const scrollPosRef = useRef(0);
   const isFirstMount = useRef(true);
+
+  // Dinamik sayfa başlığı
+  useEffect(() => {
+    // Trailing slash'ı kaldır (next.config'de trailingSlash: true olduğu için)
+    const normalizedPath = pathname.endsWith("/") && pathname !== "/" 
+      ? pathname.slice(0, -1) 
+      : pathname;
+    
+    const pageTitle = pageTitles[normalizedPath];
+    if (pageTitle) {
+      document.title = `${pageTitle} | ${SITE_NAME}`;
+    } else {
+      document.title = SITE_NAME;
+    }
+  }, [pathname]);
 
   // Sayfa yüklendiğinde (refresh dahil) scroll to top
   useEffect(() => {

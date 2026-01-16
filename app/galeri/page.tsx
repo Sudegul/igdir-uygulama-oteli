@@ -63,8 +63,8 @@ function PageHeader() {
   return (
     <section className="relative py-16 md:py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-      <div className="absolute top-0 right-1/3 w-72 h-72 bg-rose-500/20 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-cyan-500/20 rounded-full blur-[80px]" />
+      <div className="hidden md:block absolute top-0 right-1/3 w-72 h-72 bg-rose-500/20 rounded-full blur-[100px]" />
+      <div className="hidden md:block absolute bottom-0 left-1/3 w-64 h-64 bg-cyan-500/20 rounded-full blur-[80px]" />
       
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{

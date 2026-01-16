@@ -11,8 +11,15 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Iğdır Uygulama Oteli | TOBB Turizm Mesleki ve Teknik Anadolu Lisesi",
-  description: "Türkiye Odalar ve Borsalar Birliği Turizm Mesleki ve Teknik Anadolu Lisesi Uygulama Oteli - 30 odalı, 60 yatak kapasiteli modern tesislerimizle öğrencilere iş hayatı öncesi deneyim sunuyoruz. 15 Aralık 2025'te açılıyoruz.",
+  title: {
+    default: "TOBB Turizm MTAL Uygulama Oteli",
+    template: "%s | TOBB Turizm MTAL Uygulama Oteli",
+  },
+  description: "Türkiye Odalar ve Borsalar Birliği Turizm Mesleki ve Teknik Anadolu Lisesi Uygulama Oteli - 30 odalı, 60 yatak kapasiteli modern tesislerimizle öğrencilere iş hayatı öncesi deneyim sunuyoruz.",
+  icons: {
+    icon: "/assets/logos/logo_mavi.png",
+    apple: "/assets/logos/logo_mavi.png",
+  },
 };
 
 export default function RootLayout({

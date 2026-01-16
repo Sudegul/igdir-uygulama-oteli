@@ -43,11 +43,11 @@ function HeroSection() {
         }} />
       </div>
 
-      {/* Gradient Orbs */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/30 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4 animate-pulse" style={{ animationDuration: '8s' }} />
-      <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-violet-500/15 rounded-full blur-[120px] -translate-x-1/3" />
-      <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-amber-500/15 rounded-full blur-[130px] translate-y-1/2" />
-      <div className="absolute bottom-1/3 right-1/4 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
+      {/* Gradient Orbs - Hidden on mobile */}
+      <div className="hidden md:block absolute top-0 right-0 w-[800px] h-[800px] bg-primary/30 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4 animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="hidden md:block absolute top-1/3 left-0 w-[500px] h-[500px] bg-violet-500/15 rounded-full blur-[120px] -translate-x-1/3" />
+      <div className="hidden md:block absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-amber-500/15 rounded-full blur-[130px] translate-y-1/2" />
+      <div className="hidden md:block absolute bottom-1/3 right-1/4 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
       
       {/* Diagonal accent line */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
@@ -376,8 +376,8 @@ function ServicesPreview() {
 
   return (
     <section ref={ref} className="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-30">
+      {/* Background decoration - Hidden on mobile */}
+      <div className="hidden md:block absolute inset-0 opacity-30">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/20 rounded-full blur-[100px]" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]" />
       </div>
