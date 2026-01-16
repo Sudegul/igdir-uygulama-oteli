@@ -1,17 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, Moon, Sun, Globe, X, Check, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -20,73 +15,23 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: "Ana Sayfa", href: "#hero" },
-  { label: "Hakkımızda", href: "#about" },
-  { label: "Odalar & Tesisler", href: "#rooms" },
-  { label: "Hizmetler", href: "#services" },
-  { label: "Galeri", href: "#gallery" },
-  { label: "Özellikler", href: "#features" },
-  // { label: "Yorumlar", href: "#testimonials" },
-  { label: "Konum", href: "#location" },
-  { label: "İletişim", href: "#contact" },
+  { label: "Ana Sayfa", href: "/" },
+  { label: "Hakkımızda", href: "/hakkimizda" },
+  { label: "Odalar & Tesisler", href: "/odalar-tesisler" },
+  { label: "Hizmetler", href: "/hizmetler" },
+  { label: "Galeri", href: "/galeri" },
+  { label: "İletişim", href: "/iletisim" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState("TR");
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [isMobileLanguageDropdownOpen, setIsMobileLanguageDropdownOpen] = useState(false);
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 80, right: 16 });
-  const languageButtonRef = useRef<HTMLButtonElement>(null);
-  const languageDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileLanguageButtonRef = useRef<HTMLButtonElement>(null);
-  const mobileLanguageDropdownRef = useRef<HTMLDivElement>(null);
-
-  // Dropdown pozisyonunu hesapla
-  useEffect(() => {
-    const updatePosition = () => {
-      if (languageButtonRef.current) {
-        const rect = languageButtonRef.current.getBoundingClientRect();
-        setDropdownPosition({
-          top: rect.bottom + 8,
-          right: window.innerWidth - rect.right,
-        });
-      }
-    };
-
-    if (isLanguageDropdownOpen) {
-      updatePosition();
-      window.addEventListener("scroll", updatePosition, true);
-      window.addEventListener("resize", updatePosition);
-    }
-
-    return () => {
-      window.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
-    };
-  }, [isLanguageDropdownOpen]);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-
-      const allSections = navItems.map((item) => item.href.substring(1));
-
-      const current = allSections.find((section) => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-
-      if (current) {
-        setActiveSection(`#${current}`);
-      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -95,368 +40,231 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
-    setIsDrawerOpen(false);
-    setIsLanguageDropdownOpen(false);
-    setIsMobileLanguageDropdownOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+  // Mobile menu açıkken scroll'u engelle
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
     }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
   };
 
-  // Language dropdown için click outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        languageDropdownRef.current &&
-        languageButtonRef.current &&
-        !languageDropdownRef.current.contains(event.target as Node) &&
-        !languageButtonRef.current.contains(event.target as Node)
-      ) {
-        setIsLanguageDropdownOpen(false);
-      }
-      if (
-        mobileLanguageDropdownRef.current &&
-        mobileLanguageButtonRef.current &&
-        !mobileLanguageDropdownRef.current.contains(event.target as Node) &&
-        !mobileLanguageButtonRef.current.contains(event.target as Node)
-      ) {
-        setIsMobileLanguageDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // Header arka plan - scroll durumuna göre değişir
+  const headerBg = isScrolled
+    ? "bg-white shadow-sm border-b border-gray-100"
+    : "bg-white border-b border-gray-100/50";
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full overflow-x-hidden overflow-y-visible",
-        isScrolled
-          ? "bg-white/80 backdrop-blur-md shadow-md border-b border-gray-200/50"
-          : "bg-transparent"
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full overflow-visible">
-        <div className="flex h-20 items-center justify-between overflow-visible">
-          {/* Logo */}
-          <div className="shrink-0">
-            <button
-              onClick={() => handleNavClick("#hero")}
-              className={cn(
-                "text-2xl font-bold transition-colors cursor-pointer",
-                isScrolled
-                  ? "text-primary hover:text-primary/80"
-                  : "text-white hover:text-white/80 drop-shadow-md"
-              )}
+    <>
+      <motion.nav
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          headerBg
+        )}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-24 lg:h-32 items-center justify-between">
+            {/* Logo */}
+            <Link 
+              href="/" 
+              scroll={false}
+              className="shrink-0 flex items-center gap-4"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
             >
-              Logo
-            </button>
-          </div>
+              <div className="relative w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28">
+                <Image
+                  src="/assets/logos/logo_mavi.png"
+                  alt="Iğdır Uygulama Oteli"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="hidden sm:flex flex-col">
+                <span className="text-base lg:text-xl font-bold text-primary leading-tight">
+                  Uygulama Oteli
+                </span>
+                <span className="text-sm lg:text-base text-gray-500 leading-tight">
+                  TOBB Turizm MTAL
+                </span>
+              </div>
+            </Link>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-2 flex-1 justify-center">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href;
-              return (
-                <button
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex lg:items-center lg:gap-1">
+              {navItems.map((item) => (
+                <Link
                   key={item.href}
-                  onClick={() => handleNavClick(item.href)}
+                  href={item.href}
+                  scroll={false}
+                  onClick={(e) => {
+                    if (item.href === "/" && pathname === "/") {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
                   className={cn(
-                    "relative px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 cursor-pointer",
-                    "hover:scale-105 active:scale-95",
-                    isScrolled
-                      ? isActive
-                        ? "text-primary bg-primary/10"
-                        : "text-gray-700 hover:text-primary hover:bg-gray-100/60"
-                      : isActive
-                      ? "text-white bg-white/25 backdrop-blur-sm shadow-lg"
-                      : "text-white/95 hover:text-white hover:bg-white/15 backdrop-blur-sm drop-shadow-md"
+                    "relative px-5 py-3 text-sm lg:text-base font-medium rounded-lg transition-all duration-200",
+                    isActive(item.href)
+                      ? "text-primary bg-primary/10"
+                      : "text-gray-600 hover:text-primary hover:bg-primary/5"
                   )}
                 >
                   {item.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right Side - Dark Mode & Language (Desktop) */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-2 shrink-0 ml-4 overflow-visible">
-            {/* Dark Mode Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className={cn(
-                "transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer",
-                isScrolled
-                  ? "text-gray-700 hover:bg-gray-100/60 hover:text-primary"
-                  : "text-white/90 hover:bg-white/15 backdrop-blur-sm hover:text-white"
-              )}
-              aria-label="Dark mode"
-            >
-              {isDarkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-
-            {/* Language Selector */}
-            <div className="relative">
-              <Button
-                ref={languageButtonRef}
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
-                className={cn(
-                  "transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer",
-                  isScrolled
-                    ? "text-gray-700 hover:bg-gray-100/60 hover:text-primary"
-                    : "text-white/90 hover:bg-white/15 backdrop-blur-sm hover:text-white"
-                )}
-                aria-label="Language"
-              >
-                <Globe className="h-5 w-5" />
-              </Button>
-              <AnimatePresence>
-                {isLanguageDropdownOpen && (
-                  <div
-                    ref={languageDropdownRef}
-                    className="fixed z-[100]"
-                    style={{
-                      top: `${dropdownPosition.top}px`,
-                      right: `${dropdownPosition.right}px`,
-                    }}
-                  >
+                  {isActive(item.href) && (
                     <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className={cn(
-                      "rounded-xl shadow-xl overflow-hidden min-w-[160px]",
-                      "border",
-                      isScrolled
-                        ? "bg-white border-gray-200"
-                        : "bg-white/98 backdrop-blur-md border-white/30"
-                    )}
-                  >
-                    <button
-                      onClick={() => {
-                        setLanguage("TR");
-                        setIsLanguageDropdownOpen(false);
-                      }}
-                      className={cn(
-                        "w-full text-left px-3 py-2 text-sm transition-all duration-300 cursor-pointer",
-                        "flex items-center gap-2.5 hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent",
-                        language === "TR"
-                          ? "text-primary bg-primary/10 font-semibold"
-                          : "text-gray-700 hover:text-primary font-medium"
-                      )}
-                    >
-                      <span className="text-lg flex-shrink-0">🇹🇷</span>
-                      <span className="flex-1">Türkçe</span>
-                      {language === "TR" && (
-                        <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" strokeWidth={3} />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => {
-                        setLanguage("EN");
-                        setIsLanguageDropdownOpen(false);
-                      }}
-                      className={cn(
-                        "w-full text-left px-3 py-2 text-sm transition-all duration-300 cursor-pointer",
-                        "flex items-center gap-2.5 hover:bg-gradient-to-r hover:from-primary/10 hover:to-transparent",
-                        language === "EN"
-                          ? "text-primary bg-primary/10 font-semibold"
-                          : "text-gray-700 hover:text-primary font-medium"
-                      )}
-                    >
-                      <span className="text-lg flex-shrink-0">🇬🇧</span>
-                      <span className="flex-1">English</span>
-                      {language === "EN" && (
-                        <Check className="h-3.5 w-3.5 text-primary flex-shrink-0" strokeWidth={3} />
-                      )}
-                    </button>
-                  </motion.div>
-                </div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden shrink-0">
-            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen} direction="right">
-              <DrawerTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  aria-label="Menü"
-                  className={cn(
-                    "transition-all duration-300 cursor-pointer",
-                    isScrolled ? "" : "text-white hover:bg-white/10"
+                      layoutId="activeNav"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-primary rounded-full"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
                   )}
-                >
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent className="h-full w-3/4 sm:max-w-sm">
-                <DrawerHeader className="border-b">
-                  <div className="flex items-center justify-between">
-                    <DrawerTitle className="text-xl font-bold text-primary">
-                      Menü
-                    </DrawerTitle>
-                    <DrawerClose asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="cursor-pointer"
-                      >
-                        <X className="h-5 w-5" />
-                      </Button>
-                    </DrawerClose>
-                  </div>
-                </DrawerHeader>
-                <div className="flex flex-col p-4 space-y-2">
-                  {navItems.map((item) => {
-                    const isActive = activeSection === item.href;
-                    return (
-                      <button
-                        key={item.href}
-                        onClick={() => handleNavClick(item.href)}
-                        className={cn(
-                          "block w-full text-left px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer",
-                          isActive
-                            ? "text-primary bg-primary/10"
-                            : "text-gray-700 hover:text-primary hover:bg-gray-100/50"
-                        )}
-                      >
-                        {item.label}
-                      </button>
-                    );
-                  })}
-                  <div className="pt-4 mt-4 border-t">
-                    <div className="flex items-center justify-between gap-3">
-                      {/* Koyu Mod - Kare Icon Button */}
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setIsDarkMode(!isDarkMode)}
-                        className="h-12 w-12 rounded-lg border border-gray-200 hover:bg-gray-100 transition-all duration-200 cursor-pointer"
-                        aria-label={isDarkMode ? "Açık Mod" : "Koyu Mod"}
-                      >
-                        {isDarkMode ? (
-                          <Sun className="h-5 w-5 text-gray-700" />
-                        ) : (
-                          <Moon className="h-5 w-5 text-gray-700" />
-                        )}
-                      </Button>
+                </Link>
+              ))}
+            </div>
 
-                      {/* Dil Seçimi - Dropdown */}
-                      <div className="relative flex-1">
-                        <button
-                          ref={mobileLanguageButtonRef}
-                          onClick={() => setIsMobileLanguageDropdownOpen(!isMobileLanguageDropdownOpen)}
-                          className={cn(
-                            "w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-lg border border-gray-200 transition-all duration-200 cursor-pointer",
-                            "hover:bg-gray-50",
-                            isMobileLanguageDropdownOpen
-                              ? "bg-gray-50 border-gray-300"
-                              : "bg-white"
-                          )}
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <Globe className="h-4 w-4 text-gray-600" />
-                            <span className="text-gray-700">
-                              {language === "TR" ? "Türkçe" : "English"}
-                            </span>
-                          </div>
-                          <motion.div
-                            animate={{ rotate: isMobileLanguageDropdownOpen ? 180 : 0 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <ChevronDown className="h-4 w-4 text-gray-500" />
-                          </motion.div>
-                        </button>
-                        <AnimatePresence>
-                          {isMobileLanguageDropdownOpen && (
-                            <div
-                              ref={mobileLanguageDropdownRef}
-                              className="absolute top-full left-0 right-0 mt-2 z-10"
-                            >
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                                transition={{ duration: 0.2 }}
-                                className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden"
-                              >
-                                <button
-                                  onClick={() => {
-                                    setLanguage("TR");
-                                    setIsMobileLanguageDropdownOpen(false);
-                                  }}
-                                  className={cn(
-                                    "w-full text-left px-4 py-2.5 text-sm transition-all duration-200 cursor-pointer",
-                                    "flex items-center gap-2.5 hover:bg-gray-50",
-                                    language === "TR"
-                                      ? "text-primary bg-primary/5 font-semibold"
-                                      : "text-gray-700 font-medium"
-                                  )}
-                                >
-                                  <span className="text-lg flex-shrink-0">🇹🇷</span>
-                                  <span className="flex-1">Türkçe</span>
-                                  {language === "TR" && (
-                                    <Check className="h-4 w-4 text-primary flex-shrink-0" strokeWidth={3} />
-                                  )}
-                                </button>
-                                <button
-                                  onClick={() => {
-                                    setLanguage("EN");
-                                    setIsMobileLanguageDropdownOpen(false);
-                                  }}
-                                  className={cn(
-                                    "w-full text-left px-4 py-2.5 text-sm transition-all duration-200 cursor-pointer",
-                                    "flex items-center gap-2.5 hover:bg-gray-50",
-                                    language === "EN"
-                                      ? "text-primary bg-primary/5 font-semibold"
-                                      : "text-gray-700 font-medium"
-                                  )}
-                                >
-                                  <span className="text-lg flex-shrink-0">🇬🇧</span>
-                                  <span className="flex-1">English</span>
-                                  {language === "EN" && (
-                                    <Check className="h-4 w-4 text-primary flex-shrink-0" strokeWidth={3} />
-                                  )}
-                                </button>
-                              </motion.div>
-                            </div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </DrawerContent>
-            </Drawer>
+            {/* CTA Button - Desktop */}
+            <div className="hidden lg:flex lg:items-center lg:gap-3">
+              <Link href="/iletisim" scroll={false}>
+                <Button
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-base shadow-hotel"
+                >
+                  Rezervasyon
+                </Button>
+              </Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              aria-label="Menü"
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6 text-gray-700" />
+              ) : (
+                <Menu className="h-6 w-6 text-gray-700" />
+              )}
+            </button>
           </div>
         </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+            />
+
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed top-0 right-0 bottom-0 w-[300px] bg-white shadow-2xl z-50 lg:hidden"
+            >
+              <div className="flex flex-col h-full">
+                {/* Mobile Header */}
+                <div className="flex items-center justify-between p-4 border-b">
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-10 h-10">
+                      <Image
+                        src="/assets/logos/logo_mavi.png"
+                        alt="Iğdır Uygulama Oteli"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="font-semibold text-primary">Menü</span>
+                  </div>
+                  <button
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    <X className="h-5 w-5 text-gray-500" />
+                  </button>
+                </div>
+
+                {/* Navigation Links */}
+                <div className="flex-1 overflow-y-auto py-4">
+                  <div className="space-y-1 px-3">
+                    {navItems.map((item, index) => (
+                      <motion.div
+                        key={item.href}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Link
+                          href={item.href}
+                          scroll={false}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={cn(
+                            "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200",
+                            isActive(item.href)
+                              ? "text-primary bg-primary/10"
+                              : "text-gray-700 hover:bg-gray-50 hover:text-primary"
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mobile CTA */}
+                <div className="p-4 border-t bg-gray-50">
+                  <Link
+                    href="/iletisim"
+                    scroll={false}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block"
+                  >
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-white py-6 text-base shadow-hotel">
+                      Rezervasyon Yap
+                    </Button>
+                  </Link>
+                  <div className="mt-4 text-center">
+                    <a
+                      href="tel:04762286030"
+                      className="text-sm text-gray-500 hover:text-primary transition-colors"
+                    >
+                      0476 228 60 30
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Spacer for fixed navbar */}
+      <div className="h-24 lg:h-32" />
+    </>
   );
 }

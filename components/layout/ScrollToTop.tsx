@@ -44,8 +44,8 @@ export function ScrollToTop() {
             size="icon"
             className={cn(
               "h-12 w-12 rounded-full shadow-lg",
-              "bg-primary text-primary-foreground",
-              "hover:bg-primary/90 hover:scale-110",
+              "bg-slate-800 text-white",
+              "hover:bg-slate-700 hover:scale-110",
               "transition-transform duration-200"
             )}
             aria-label="Yukarı çık"
