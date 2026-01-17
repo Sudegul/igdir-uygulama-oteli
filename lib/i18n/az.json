@@ -251,7 +251,22 @@
     "distance": "məsafə",
     "publicTransport": "İctimai nəqliyyat ilə asan çatım",
     "parkingAvailable": "Açıq və qapalı dayanacaq imkanı",
-    "mapTitle": "Iğdır Uygulama Oteli Yeri"
+    "mapTitle": "Iğdır Uygulama Oteli Yeri",
+    "formTitle": "Bizə Mesaj Göndərin",
+    "formDescription": "Suallarınız və ya təklifləriniz üçün formu doldurun, ən qısa zamanda sizə cavab verək.",
+    "formName": "Adınız Soyadınız",
+    "formEmail": "E-poçt Ünvanınız",
+    "formSubject": "Mövzu",
+    "formMessage": "Mesajınız",
+    "formSubmit": "Göndər",
+    "formSending": "Göndərilir...",
+    "formSuccess": "Mesajınız uğurla göndərildi! Ən qısa zamanda sizə cavab verəcəyik.",
+    "formError": "Mesaj göndərilə bilmədi. Zəhmət olmasa sonra yenidən cəhd edin.",
+    "formNameRequired": "Ad soyad tələb olunur",
+    "formEmailRequired": "E-poçt ünvanı tələb olunur",
+    "formEmailInvalid": "Düzgün e-poçt ünvanı daxil edin",
+    "formSubjectRequired": "Mövzu tələb olunur",
+    "formMessageRequired": "Mesaj tələb olunur"
   },
   "cta": {
     "callForReservation": "Rezervasiya Üçün Bizə Zəng Edin",

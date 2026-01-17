@@ -224,7 +224,7 @@ export const contactInfo = {
   whatsappUrl: "https://wa.me/905530517676",
   instagram: "igdirturizmlisesiuygulamaoteli",
   instagramUrl: "https://www.instagram.com/igdirturizmlisesiuygulamaoteli",
-  email: "info@ornek-otel.edu.tr",
+  email: "igdirtobbturizmmtaluygulamaote@gmail.com",
   address: "14 Kasım Mah. İlham Aliyev Cad. No: 282, Merkez, Iğdır (TÜVTÜRK Muayene İstasyonu Karşısı)",
   mapUrl: "https://maps.app.goo.gl/eJuv265RmFV4dPGM8?g_st=iw",
   mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.1234567890!2d44.0456!3d39.9234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDU1JzI0LjIiTiA0NMKwMDInNDAuNCJF!5e0!3m2!1str!2str!4v1234567890123!5m2!1str!2str",

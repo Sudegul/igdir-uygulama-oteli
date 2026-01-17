@@ -251,7 +251,22 @@
     "distance": "mesafede",
     "publicTransport": "Toplu taşıma araçları ile kolay ulaşım",
     "parkingAvailable": "Açık ve kapalı otopark imkanı",
-    "mapTitle": "Iğdır Uygulama Oteli Konum"
+    "mapTitle": "Iğdır Uygulama Oteli Konum",
+    "formTitle": "Bize Mesaj Gönderin",
+    "formDescription": "Sorularınız veya önerileriniz için formu doldurun, en kısa sürede size dönüş yapalım.",
+    "formName": "Adınız Soyadınız",
+    "formEmail": "E-posta Adresiniz",
+    "formSubject": "Konu",
+    "formMessage": "Mesajınız",
+    "formSubmit": "Gönder",
+    "formSending": "Gönderiliyor...",
+    "formSuccess": "Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.",
+    "formError": "Mesaj gönderilemedi. Lütfen daha sonra tekrar deneyin.",
+    "formNameRequired": "Ad soyad gereklidir",
+    "formEmailRequired": "E-posta adresi gereklidir",
+    "formEmailInvalid": "Geçerli bir e-posta adresi giriniz",
+    "formSubjectRequired": "Konu gereklidir",
+    "formMessageRequired": "Mesaj gereklidir"
   },
   "cta": {
     "callForReservation": "Rezervasyon İçin Bizi Arayın",

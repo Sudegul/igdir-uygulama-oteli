@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Phone, MapPin, ArrowRight } from "lucide-react";
+import { Phone, MapPin, ArrowRight, Mail } from "lucide-react";
 import { contactInfo } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n";
 
@@ -128,6 +128,15 @@ export function Footer() {
                 >
                   <Phone className="h-4 w-4 text-accent shrink-0" />
                   <span>{contactInfo.phone}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors"
+                >
+                  <Mail className="h-4 w-4 text-accent shrink-0" />
+                  <span className="break-all">{contactInfo.email}</span>
                 </a>
               </li>
               <li>

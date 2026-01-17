@@ -251,7 +251,22 @@
     "distance": "distance",
     "publicTransport": "Easy access by public transportation",
     "parkingAvailable": "Open and covered parking available",
-    "mapTitle": "Igdir Training Hotel Location"
+    "mapTitle": "Igdir Training Hotel Location",
+    "formTitle": "Send Us a Message",
+    "formDescription": "Fill out the form for your questions or suggestions, we'll get back to you as soon as possible.",
+    "formName": "Your Name",
+    "formEmail": "Your Email Address",
+    "formSubject": "Subject",
+    "formMessage": "Your Message",
+    "formSubmit": "Send",
+    "formSending": "Sending...",
+    "formSuccess": "Your message has been sent successfully! We will get back to you shortly.",
+    "formError": "Failed to send message. Please try again later.",
+    "formNameRequired": "Name is required",
+    "formEmailRequired": "Email is required",
+    "formEmailInvalid": "Please enter a valid email address",
+    "formSubjectRequired": "Subject is required",
+    "formMessageRequired": "Message is required"
   },
   "cta": {
     "callForReservation": "Call Us for Reservation",
