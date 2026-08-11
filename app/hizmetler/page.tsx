@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Utensils, Coffee, Users, Wifi, Car, Droplet, Shield, Phone, Heart, UtensilsCrossed, Dumbbell, Sparkles, Briefcase } from "lucide-react";
+import { ArrowRight, Clock, Utensils, Users, Wifi, Car, Droplet, Shield, Phone, Heart, UtensilsCrossed, Dumbbell, Sparkles, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
 import { contactInfo } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n";
 
@@ -32,12 +33,62 @@ function PageHeader() {
   );
 }
 
+function ImageCarousel({ images, alt }: { images: string[]; alt: string }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToPrevious = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const goToNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl group">
+      <Image src={images[currentIndex]} alt={alt} fill className="object-cover" />
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={goToPrevious}
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white shadow-lg"
+          >
+            <ChevronLeft className="h-6 w-6 text-gray-800" />
+          </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-white shadow-lg"
+          >
+            <ChevronRight className="h-6 w-6 text-gray-800" />
+          </button>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentIndex(index);
+                }}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? "bg-white w-5" : "bg-white/50 hover:bg-white/80"
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 function MainServicesSection() {
   const { t } = useTranslation();
   const services = [
-    { icon: Utensils, titleKey: "services.restaurantService", descKey: "services.restaurantServiceDesc", image: "/assets/images/Tesisler/Yemek_Hane/1.JPG", featuresKeys: ["services.openBuffet", "services.aLaCarte", "services.groupMenus"] },
-    { icon: Coffee, titleKey: "services.observationCafe", descKey: "services.observationCafeDesc", image: "/assets/images/Tesisler/Kafeterya/kafetarya.JPG", featuresKeys: ["services.viewTerrace", "services.hotColdDrinks", "services.desserts", "services.loungeArea"] },
-    { icon: Users, titleKey: "services.conferenceService", descKey: "services.conferenceServiceDesc", image: "/assets/images/Tesisler/Konferans_Salonu/konferans_salonu.JPG", featuresKeys: ["services.projectionSystem", "services.soundSystem", "services.highSpeedInternet", "services.technicalSupport"] },
+    { icon: Utensils, titleKey: "services.restaurantService", descKey: "services.restaurantServiceDesc", images: ["/assets/images/Tesisler/Yemek_Hane/1.JPG"], featuresKeys: ["services.openBuffet", "services.aLaCarte", "services.groupMenus"] },
+    { icon: Dumbbell, titleKey: "services.gym", descKey: "services.gymDesc", images: ["/assets/images/Tesisler/Spor_Salonu/1.JPG", "/assets/images/Tesisler/Spor_Salonu/2.JPG", "/assets/images/Tesisler/Spor_Salonu/3.jpeg"], featuresKeys: ["services.modernEquipment", "services.highHygiene"] },
+    { icon: Users, titleKey: "services.conferenceService", descKey: "services.conferenceServiceDesc", images: ["/assets/images/Tesisler/Konferans_Salonu/konferans_salonu.JPG", "/assets/images/Tesisler/Toplantı_Odası/1.JPG", "/assets/images/Tesisler/Toplantı_Odası/2.jpg"], featuresKeys: ["services.projectionSystem", "services.soundSystem", "services.highSpeedInternet", "services.technicalSupport"] },
   ];
 
   return (
@@ -52,14 +103,7 @@ function MainServicesSection() {
           {services.map((service, index) => (
             <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <Image src={service.image} alt={t(service.titleKey)} fill className="object-cover" />
-                  <div className="absolute top-4 left-4">
-                   {/*  <div className="w-14 h-14 rounded-xl bg-white shadow-lg flex items-center justify-center">
-                      <service.icon className="h-7 w-7 text-primary" />
-                    </div> */}
-                  </div>
-                </div>
+                <ImageCarousel images={service.images} alt={t(service.titleKey)} />
               </div>
 
               <div className={index % 2 === 1 ? "lg:order-1" : ""}>

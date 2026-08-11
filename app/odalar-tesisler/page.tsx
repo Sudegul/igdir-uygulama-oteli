@@ -334,9 +334,9 @@ function FacilitiesSection() {
       titleKey: "rooms.gym",
       descKey: "rooms.gymDesc",
       images: [
-        "/assets/images/Tesisler/Spor_Salonu/spor_salonu.jpeg",
-        "/assets/images/Tesisler/Spor_Salonu/kosu_bandi.JPG",
-        "/assets/images/Tesisler/Spor_Salonu/spor_aletleri.JPG",
+        "/assets/images/Tesisler/Spor_Salonu/1.JPG",
+        "/assets/images/Tesisler/Spor_Salonu/2.JPG",
+        "/assets/images/Tesisler/Spor_Salonu/3.jpeg",
       ]
     },
     {
