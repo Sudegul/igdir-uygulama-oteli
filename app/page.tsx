@@ -134,7 +134,7 @@ function RoomsPreview() {
 
   const rooms = [
     { titleKey: "roomTypes.suiteFamilyRoom", descKey: "roomTypes.suiteFamilyRoomDesc", image: "/assets/images/Odalar/Suit_Family_room/9a7a750e-d0b1-48ce-a15a-39915834c0f1.JPG", featuresKeys: ["rooms.kingSizeBed", "rooms.sittingArea", "rooms.smartTv", "rooms.miniBar"] },
-    { titleKey: "roomTypes.doubleRoom", descKey: "roomTypes.doubleRoomDesc", image: "/assets/images/Odalar/double_room/e80096f4-fca4-4eb8-9b17-4459e9527668.JPG", featuresKeys: ["rooms.doubleBed", "rooms.airConditioning", "rooms.freeWifi", "rooms.lcdTv"] },
+    { titleKey: "roomTypes.suitRoom", descKey: "roomTypes.suitRoomDesc", image: "/assets/images/Odalar/suit_room/1.JPG", featuresKeys: ["rooms.kingSizeBed", "rooms.sittingArea", "rooms.smartTv", "rooms.miniBar"] },
   ];
 
   return (

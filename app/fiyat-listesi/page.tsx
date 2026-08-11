@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, Coffee, Check, Users, Bed, Wifi, Wind, Tv, Bath, Sparkles, Info, CreditCard, ChevronLeft, ChevronRight, UtensilsCrossed, Calendar } from "lucide-react";
+import { ArrowRight, Phone, Coffee, Check, Users, Bed, Wifi, Wind, Tv, Bath, Sparkles, Info, CreditCard, ChevronLeft, ChevronRight, UtensilsCrossed, Calendar, MessageCircle } from "lucide-react";
 import { contactInfo } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n";
 
@@ -165,10 +165,6 @@ function PageHeader() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-            <CreditCard className="h-4 w-4 text-amber-400" />
-            <span className="text-sm text-white/90">{t("prices.transparentPricing")}</span>
-          </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">{t("prices.pageTitle")}</h1>
           <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">{t("prices.pageDescription")}</p>
 
@@ -280,11 +276,16 @@ function PriceListSection() {
                 {/* Price */}
                 <div className="border-t border-gray-100 pt-4">
                   {"contactForPrice" in item && item.contactForPrice ? (
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-primary">{t("prices.contactForPriceInfo")}</span>
-                      <div className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg">
-                        <Coffee className="h-4 w-4" />
-                        <span className="text-xs font-medium">{t("prices.withBreakfast")}</span>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Phone className="h-5 w-5 text-primary" />
+                        <span className="text-lg font-bold text-primary">{t("prices.contactForPriceInfo")}</span>
+                      </div>
+                      <div className="flex justify-end">
+                        <div className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg">
+                          <Coffee className="h-4 w-4" />
+                          <span className="text-xs font-medium">{t("prices.withBreakfast")}</span>
+                        </div>
                       </div>
                     </div>
                   ) : "pricePerPerson" in item ? (
@@ -443,13 +444,16 @@ function CTASection() {
               </Button>
             </a>
             <Link href="/iletisim" scroll={false}>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary px-8">
+              <Button size="lg" className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-primary px-8">
                 {t("rooms.contactPage")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
           </div>
-          <p className="mt-8 text-white/60 text-sm">{t("prices.whatsappNote")}</p>
+          <a href={contactInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-8 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full transition-colors">
+            <MessageCircle className="h-5 w-5" />
+            <span className="font-medium">WhatsApp</span>
+          </a>
         </div>
       </div>
     </section>
