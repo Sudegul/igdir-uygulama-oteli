@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Bed, Users, GraduationCap, Award, Mountain, Target, Heart, Building, Star, BookOpen } from "lucide-react";
+import { ArrowRight, Bed, Users, Mountain, Target, Heart, Building, Star, MapPin, Plane } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 function PageHeader() {
@@ -36,28 +35,16 @@ function AboutContent() {
 
   return (
     <section className="py-24 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              {t("about.pioneerTitle")}<br />
-              <span className="text-primary">{t("about.pioneerSubtitle")}</span>
-            </h2>
-            <div className="space-y-5 text-gray-600 leading-relaxed">
-              <p>{t("about.content1")}</p>
-              <p>{t("about.content2")}</p>
-              <p>{t("about.content3")}</p>
-              <p>{t("about.content4")}</p>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-              <Image src="/assets/images/otel_giris.jpg" alt="Otel Dış Görünüm" fill className="object-cover" />
-            </div>
-            <div className="absolute -bottom-8 -left-8 w-2/3 aspect-[4/3] rounded-xl overflow-hidden shadow-xl border-4 border-white hidden md:block">
-              <Image src="/assets/images/lobi.jpg" alt="Otel Lobi" fill className="object-cover" />
-            </div>
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            {t("about.pioneerTitle")}<br />
+            <span className="text-primary">{t("about.pioneerSubtitle")}</span>
+          </h2>
+          <div className="space-y-5 text-gray-600 leading-relaxed text-lg">
+            <p>{t("about.content1")}</p>
+            <p>{t("about.content2")}</p>
+            <p>{t("about.content3")}</p>
           </div>
         </div>
       </div>
@@ -71,13 +58,14 @@ function StatsSection() {
     { icon: Bed, value: "30", labelKey: "about.rooms", suffix: "" },
     { icon: Users, value: "60", labelKey: "about.bedCapacity", suffix: "" },
     { icon: Building, value: "100", labelKey: "about.restaurantCapacity", suffix: "+" },
-    { icon: GraduationCap, value: "5", labelKey: "about.starInternship", suffix: "★" },
+    { icon: MapPin, value: "5.7", labelKey: "about.toCityCenter", suffix: " km" },
+    { icon: Plane, value: "22", labelKey: "about.toAirport", suffix: " km" },
   ];
 
   return (
     <section className="py-20 bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
           {stats.map((stat, index) => (
             <div key={index} className="text-center p-6 bg-white rounded-2xl shadow-lg">
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
@@ -129,12 +117,10 @@ function MissionVision() {
 function FeaturesSection() {
   const { t } = useTranslation();
   const features = [
-    { icon: GraduationCap, titleKey: "about.feature1Title", descKey: "about.feature1Desc" },
-    { icon: Award, titleKey: "about.feature2Title", descKey: "about.feature2Desc" },
     { icon: Mountain, titleKey: "about.feature3Title", descKey: "about.feature3Desc" },
     { icon: Star, titleKey: "about.feature4Title", descKey: "about.feature4Desc" },
     { icon: Users, titleKey: "about.feature5Title", descKey: "about.feature5Desc" },
-    { icon: BookOpen, titleKey: "about.feature6Title", descKey: "about.feature6Desc" },
+    { icon: Building, titleKey: "about.feature6Title", descKey: "about.feature6Desc" },
   ];
 
   return (
@@ -145,7 +131,7 @@ function FeaturesSection() {
           <p className="mt-4 text-white/70 max-w-2xl mx-auto">{t("about.featuresDesc")}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {features.map((feature, index) => (
             <div key={index} className="group relative p-8 rounded-2xl bg-white/10 border border-white/10 hover:bg-white/15 hover:border-white/20 transition-all duration-300">
               <div className="w-12 h-12 mb-5 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">

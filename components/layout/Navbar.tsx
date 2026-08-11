@@ -39,6 +39,7 @@ export function Navbar() {
     { labelKey: "nav.home", href: "/" },
     { labelKey: "nav.about", href: "/hakkimizda" },
     { labelKey: "nav.rooms", href: "/odalar-tesisler" },
+    { labelKey: "nav.prices", href: "/fiyat-listesi" },
     { labelKey: "nav.services", href: "/hizmetler" },
     { labelKey: "nav.gallery", href: "/galeri" },
     { labelKey: "nav.contact", href: "/iletisim" },

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Utensils, Coffee, Users, Wifi, Car, Droplet, Shield, GraduationCap, Phone, Heart, UtensilsCrossed, Dumbbell, Sparkles, Briefcase } from "lucide-react";
+import { ArrowRight, Clock, Utensils, Coffee, Users, Wifi, Car, Droplet, Shield, Phone, Heart, UtensilsCrossed, Dumbbell, Sparkles, Briefcase } from "lucide-react";
 import { contactInfo } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n";
 
@@ -35,9 +35,9 @@ function PageHeader() {
 function MainServicesSection() {
   const { t } = useTranslation();
   const services = [
-    { icon: Utensils, titleKey: "services.restaurantService", descKey: "services.restaurantServiceDesc", image: "/assets/images/restoran_cafe.jpg", featuresKeys: ["services.openBuffet", "services.aLaCarte", "services.groupMenus", "services.dietMenus"] },
-    { icon: Coffee, titleKey: "services.observationCafe", descKey: "services.observationCafeDesc", image: "/assets/images/kafetarya.JPG", featuresKeys: ["services.viewTerrace", "services.hotColdDrinks", "services.desserts", "services.loungeArea"] },
-    { icon: Users, titleKey: "services.conferenceService", descKey: "services.conferenceServiceDesc", image: "/assets/images/konferans.JPG", featuresKeys: ["services.projectionSystem", "services.soundSystem", "services.highSpeedInternet", "services.technicalSupport"] },
+    { icon: Utensils, titleKey: "services.restaurantService", descKey: "services.restaurantServiceDesc", image: "/assets/images/Tesisler/Yemek_Hane/1.JPG", featuresKeys: ["services.openBuffet", "services.aLaCarte", "services.groupMenus"] },
+    { icon: Coffee, titleKey: "services.observationCafe", descKey: "services.observationCafeDesc", image: "/assets/images/Tesisler/Kafeterya/kafetarya.JPG", featuresKeys: ["services.viewTerrace", "services.hotColdDrinks", "services.desserts", "services.loungeArea"] },
+    { icon: Users, titleKey: "services.conferenceService", descKey: "services.conferenceServiceDesc", image: "/assets/images/Tesisler/Konferans_Salonu/konferans_salonu.JPG", featuresKeys: ["services.projectionSystem", "services.soundSystem", "services.highSpeedInternet", "services.technicalSupport"] },
   ];
 
   return (
@@ -87,10 +87,8 @@ function AllServicesGrid() {
   const services = [
     { icon: Clock, titleKey: "services.reception24", descKey: "services.reception24Desc" },
     { icon: Droplet, titleKey: "services.laundry", descKey: "services.laundryDesc" },
-    { icon: null, iconPath: "/assets/icons/mosque.svg", titleKey: "services.mosque", descKey: "services.mosqueDesc" },
     { icon: Shield, titleKey: "services.specialMenu", descKey: "services.specialMenuDesc" },
     { icon: Heart, titleKey: "services.childAccommodation", descKey: "services.childAccommodationDesc" },
-    { icon: GraduationCap, titleKey: "services.educationService", descKey: "services.educationServiceDesc" },
     { icon: Wifi, titleKey: "services.freeWifi", descKey: "services.freeWifiDesc" },
     { icon: Car, titleKey: "services.parking", descKey: "services.parkingDesc" },
     { icon: Dumbbell, titleKey: "services.gym", descKey: "services.gymDesc" },
@@ -111,11 +109,7 @@ function AllServicesGrid() {
           {services.map((service, index) => (
             <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-center group">
               <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                {service.icon ? (
-                  <service.icon className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
-                ) : service.iconPath ? (
-                  <Image src={service.iconPath} alt={t(service.titleKey)} width={28} height={28} className="text-primary group-hover:brightness-0 group-hover:invert transition-all" />
-                ) : null}
+                <service.icon className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-1">{t(service.titleKey)}</h3>
               <p className="text-sm text-gray-500">{t(service.descKey)}</p>
@@ -127,56 +121,6 @@ function AllServicesGrid() {
   );
 }
 
-function SpecialFeatures() {
-  const { t } = useTranslation();
-
-  return (
-    <section className="py-24 bg-primary text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">{t("services.professionalService")}</h2>
-            <p className="text-white/80 text-lg mb-6 leading-relaxed">{t("services.professionalServiceDesc1")}</p>
-            <p className="text-white/80 leading-relaxed mb-8">{t("services.professionalServiceDesc2")}</p>
-
-            <div className="grid grid-cols-2 gap-6">
-              {[
-                { value: "5★", labelKey: "services.starInternshipHotels" },
-                { value: "5", labelKey: "services.internshipDuration" },
-                { value: "3", labelKey: "services.internshipLocation" },
-                { value: "∞", labelKey: "services.innovativeApproach" },
-              ].map((stat, i) => (
-                <div key={i} className="text-center p-4 bg-white/5 rounded-xl">
-                  <div className="text-2xl font-bold text-accent mb-1">{stat.value}</div>
-                  <div className="text-sm text-white/70">{t(stat.labelKey)}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="relative aspect-square rounded-2xl overflow-hidden">
-              <Image src="/assets/images/lobi_2.jpg" alt="Resepsiyon" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
-            </div>
-            
-            <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl hidden md:block">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center">
-                  <GraduationCap className="h-7 w-7 text-accent" />
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">{t("about.educationFocused").split(" ")[0]}</div>
-                  <div className="text-sm text-gray-500">{t("about.educationFocused").split(" ").slice(1).join(" ")}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function CTASection() {
   const { t } = useTranslation();
@@ -213,7 +157,6 @@ export default function HizmetlerPage() {
       <PageHeader />
       <MainServicesSection />
       <AllServicesGrid />
-      <SpecialFeatures />
       <CTASection />
     </>
   );

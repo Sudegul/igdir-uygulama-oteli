@@ -3,30 +3,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { 
-  ArrowRight, 
-  Bed, 
-  Users, 
-  Coffee, 
-  Utensils, 
-  Wifi, 
+import {
+  ArrowRight,
+  Bed,
+  Users,
+  Coffee,
+  Utensils,
+  Wifi,
   Car,
   MapPin,
   Phone,
   Star,
-  GraduationCap,
-  ChevronRight
+  ChevronRight,
+  MessageCircle
 } from "lucide-react";
 import { contactInfo } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n";
 
 function HeroSection() {
   const { t } = useTranslation();
-  
+
   return (
     <section className="relative min-h-[calc(100vh-96px)] lg:min-h-[calc(100vh-96px)] overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-      
+
       <div className="hidden md:block absolute top-0 right-0 w-[800px] h-[800px] bg-primary/30 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/4" />
       <div className="hidden md:block absolute top-1/3 left-0 w-[500px] h-[500px] bg-violet-500/15 rounded-full blur-[120px] -translate-x-1/3" />
       <div className="hidden md:block absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-amber-500/15 rounded-full blur-[130px] translate-y-1/2" />
@@ -75,20 +75,9 @@ function HeroSection() {
           </div>
 
           <div className="order-1 lg:order-2 relative">
-            <div className="relative aspect-[16/10] lg:aspect-[4/3] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
-              <Image src="/assets/images/otel_giris.jpg" alt="Iğdır Uygulama Oteli" fill priority className="object-cover" />
+            <div className="relative aspect-[3/4] lg:aspect-[3/4] rounded-2xl lg:rounded-3xl overflow-hidden shadow-2xl">
+              <Image src="/assets/images/otel_dıştançekim.PNG" alt="Iğdır Uygulama Oteli" fill priority className="object-cover object-center" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
-            </div>
-            <div className="absolute -bottom-4 -left-4 lg:bottom-8 lg:-left-8 bg-white/95 px-5 py-3 rounded-xl shadow-lg hidden sm:block">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center">
-                  <Star className="h-5 w-5 text-amber-500" />
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-slate-900">{t("hero.qualityService")}</div>
-                  <div className="text-xs text-slate-500">{t("hero.professionalTeam")}</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -104,55 +93,36 @@ function AboutPreview() {
   return (
     <section className="py-24 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="relative">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-              <Image src="/assets/images/lobi.jpg" alt="Otel Lobi" fill className="object-cover" />
-            </div>
-            <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-lg border border-gray-100 hidden md:block">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center">
-                  <GraduationCap className="h-7 w-7 text-primary" />
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            {t("preview.aboutTitle1")}{" "}
+            <span className="text-primary">{t("preview.aboutTitle2")}</span>
+          </h2>
+          <p className="text-gray-600 text-lg leading-relaxed mb-8">{t("about.description1")}</p>
+          <p className="text-gray-600 leading-relaxed mb-10">{t("about.description2")}</p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+            {[
+              { icon: Bed, textKey: "facilities.rooms30beds60" },
+              { icon: Utensils, textKey: "about.restaurantCapacity" },
+              { icon: Users, textKey: "facilities.conferenceHall" },
+              { icon: Star, textKey: "about.feature3Title" },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-3 p-4 bg-gray-50 rounded-xl">
+                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                  <item.icon className="h-6 w-6 text-accent" />
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-primary">{t("about.educationFocused").split(" ")[0]}</div>
-                  <div className="text-sm text-gray-500">{t("about.educationFocused").split(" ").slice(1).join(" ")}</div>
-                </div>
+                <span className="text-sm font-medium text-gray-700 text-center">{t(item.textKey)}</span>
               </div>
-            </div>
+            ))}
           </div>
 
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              {t("preview.aboutTitle1")}<br />
-              <span className="text-primary">{t("preview.aboutTitle2")}</span>
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">{t("about.description1")}</p>
-            <p className="text-gray-600 leading-relaxed mb-8">{t("about.description2")}</p>
-
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {[
-                { icon: Bed, textKey: "facilities.rooms30beds60" },
-                { icon: Utensils, textKey: "about.restaurantCapacity" },
-                { icon: Users, textKey: "facilities.conferenceHall" },
-                { icon: Star, textKey: "about.feature3Title" },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center">
-                    <item.icon className="h-5 w-5 text-accent" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-700">{t(item.textKey)}</span>
-                </div>
-              ))}
-            </div>
-
-            <Link href="/hakkimizda" scroll={false}>
-              <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-white">
-                {t("common.learnMore")}
-                <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
+          <Link href="/hakkimizda" scroll={false}>
+            <Button variant="outline" className="group border-primary text-primary hover:bg-primary hover:text-white">
+              {t("common.learnMore")}
+              <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
@@ -163,8 +133,8 @@ function RoomsPreview() {
   const { t } = useTranslation();
 
   const rooms = [
-    { titleKey: "rooms.standardRoom", descKey: "preview.standardRoomDesc", image: "/assets/images/tek_kisilik_yatakli_odalar.jpeg", featuresKeys: ["rooms.doubleBed", "rooms.airConditioning", "rooms.freeWifi", "rooms.lcdTv"] },
-    { titleKey: "rooms.suiteRoom", descKey: "preview.suiteRoomDesc", image: "/assets/images/cift_kisilik_yatakli_oda.jpg", featuresKeys: ["rooms.sittingArea", "rooms.miniBar", "rooms.smartTv", "rooms.highSpeedWifi"] },
+    { titleKey: "roomTypes.suiteFamilyRoom", descKey: "roomTypes.suiteFamilyRoomDesc", image: "/assets/images/Odalar/Suit_Family_room/9a7a750e-d0b1-48ce-a15a-39915834c0f1.JPG", featuresKeys: ["rooms.kingSizeBed", "rooms.sittingArea", "rooms.smartTv", "rooms.miniBar"] },
+    { titleKey: "roomTypes.doubleRoom", descKey: "roomTypes.doubleRoomDesc", image: "/assets/images/Odalar/double_room/e80096f4-fca4-4eb8-9b17-4459e9527668.JPG", featuresKeys: ["rooms.doubleBed", "rooms.airConditioning", "rooms.freeWifi", "rooms.lcdTv"] },
   ];
 
   return (
@@ -262,11 +232,14 @@ function GalleryPreview() {
   const { t } = useTranslation();
 
   const galleryImages = [
-    { src: "/assets/images/lobi_2.jpg", span: "col-span-2 row-span-2" },
-    { src: "/assets/images/oturma_alani.jpg", span: "col-span-1" },
-    { src: "/assets/images/restoran_cafe.jpg", span: "col-span-1" },
-    { src: "/assets/images/konferans.JPG", span: "col-span-1" },
-    { src: "/assets/images/kafetarya.JPG", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Lobi/reception.jpg", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Lobi/lobi_7.JPG", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Yemek_Hane/1.JPG", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Kafeterya/kafetarya.JPG", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Konferans_Salonu/konferans_salonu.JPG", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Toplantı_Odası/1.JPG", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Spor_Salonu/spor_salonu.jpeg", span: "col-span-1" },
+    { src: "/assets/images/Tesisler/Teras/bahce.JPG", span: "col-span-1" },
   ];
 
   return (
@@ -317,6 +290,12 @@ function CTASection() {
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white px-8 py-6 text-lg group">
                   <Phone className="mr-2 h-5 w-5" />
                   {contactInfo.phone}
+                </Button>
+              </a>
+              <a href={contactInfo.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg group">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  WhatsApp
                 </Button>
               </a>
               <Link href="/iletisim" scroll={false}>
